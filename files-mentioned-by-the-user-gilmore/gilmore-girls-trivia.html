@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gilmore Girls Trivia Night</title>
+  <style>
+    :root {
+      --cream: #fff5df;
+      --paper: #fffaf0;
+      --latte: #dfc49a;
+      --caramel: #b9793f;
+      --pumpkin: #d97935;
+      --marigold: #efb644;
+      --coffee: #4d2f22;
+      --ink: #26364b;
+      --blue: #193657;
+      --leaf: #7c8d54;
+      --red: #9e4435;
+      --shadow: rgba(43, 29, 22, 0.16);
+      --glow: rgba(239, 182, 68, 0.45);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--coffee);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at 16px 18px, rgba(185, 121, 63, 0.14) 0 3px, transparent 4px),
+        radial-gradient(circle at 78px 56px, rgba(239, 182, 68, 0.18) 0 4px, transparent 5px),
+        linear-gradient(135deg, transparent 0 46%, rgba(124, 141, 84, 0.12) 47% 53%, transparent 54%),
+        linear-gradient(45deg, transparent 0 47%, rgba(158, 68, 53, 0.1) 48% 52%, transparent 53%),
+        var(--cream);
+      background-size: 112px 112px, 112px 112px, 88px 88px, 96px 96px, auto;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse at 18% 12%, rgba(255, 250, 240, 0.85), transparent 34%),
+        radial-gradient(ellipse at 82% 8%, rgba(25, 54, 87, 0.12), transparent 30%),
+        radial-gradient(ellipse at 50% 100%, rgba(217, 121, 53, 0.16), transparent 45%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "☕  ◇  ✦  ▱  ☕  ◌  ✦";
+      position: fixed;
+      inset: auto -20px 24px auto;
+      z-index: -1;
+      color: rgba(77, 47, 34, 0.08);
+      font: 700 92px/1 Arial, sans-serif;
+      letter-spacing: 18px;
+      transform: rotate(-8deg);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 18px;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      align-items: center;
+      justify-items: center;
+      min-height: 230px;
+      padding: 24px 16px 8px;
+      text-align: center;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      margin: 0;
+      color: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(3.2rem, 9vw, 7.4rem);
+      font-weight: 950;
+      line-height: 0.82;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 var(--marigold), 7px 7px 0 rgba(77, 47, 34, 0.16);
+    }
+
+    .coffee-icon {
+      width: clamp(56px, 9vw, 86px);
+      height: clamp(56px, 9vw, 86px);
+      filter: drop-shadow(4px 5px 0 rgba(77, 47, 34, 0.16));
+    }
+
+    .tagline {
+      margin: 0;
+      color: var(--red);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .main-panel {
+      position: relative;
+      min-height: 520px;
+      border: 3px solid var(--coffee);
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(25, 54, 87, 0.05) 0 1px, transparent 1px 34px),
+        linear-gradient(rgba(185, 121, 63, 0.05) 0 1px, transparent 1px 34px),
+        var(--paper);
+      box-shadow: 0 20px 38px var(--shadow);
+      overflow: hidden;
+    }
+
+    .main-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 8% 18%, rgba(185, 121, 63, 0.18) 0 22px, transparent 23px),
+        radial-gradient(circle at 92% 88%, rgba(77, 47, 34, 0.12) 0 36px, transparent 37px),
+        radial-gradient(circle at 80% 16%, rgba(239, 182, 68, 0.16) 0 18px, transparent 19px);
+      pointer-events: none;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      display: none;
+      min-height: 520px;
+      padding: clamp(22px, 4vw, 42px);
+    }
+
+    .screen.active {
+      display: grid;
+    }
+
+    .home-screen {
+      grid-template-columns: 1fr;
+      align-content: center;
+      gap: 28px;
+      text-align: center;
+    }
+
+    .welcome {
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .welcome h2,
+    .results-card h2 {
+      max-width: 780px;
+      margin: 0;
+      color: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .welcome p,
+    .results-card p {
+      max-width: 690px;
+      margin: 0;
+      font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+      line-height: 1.55;
+    }
+
+    .icon-strip {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(44px, 1fr));
+      gap: 14px;
+      width: min(740px, 100%);
+      margin: 0 auto;
+    }
+
+    .flat-icon {
+      display: grid;
+      place-items: center;
+      min-height: 62px;
+      border: 2px solid rgba(77, 47, 34, 0.72);
+      border-radius: var(--radius);
+      background: rgba(255, 245, 223, 0.78);
+      box-shadow: 4px 4px 0 rgba(77, 47, 34, 0.14);
+      font-size: 1.55rem;
+    }
+
+    .start-button,
+    .next-button,
+    .secondary-button,
+    .share-button {
+      border: 2px solid var(--coffee);
+      border-radius: var(--radius);
+      color: var(--cream);
+      background: var(--coffee);
+      box-shadow: 5px 5px 0 rgba(77, 47, 34, 0.2);
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .start-button {
+      justify-self: center;
+      position: relative;
+      min-width: min(360px, 100%);
+      padding: 22px 30px;
+      color: var(--marigold);
+      background: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1.35rem, 4vw, 2.15rem);
+      font-weight: 950;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .start-button::before,
+    .start-button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--marigold);
+      transform: translateY(-50%);
+      box-shadow: inset 0 -2px 0 rgba(77, 47, 34, 0.18);
+    }
+
+    .start-button::before {
+      left: 16px;
+    }
+
+    .start-button::after {
+      right: 16px;
+    }
+
+    .start-button:hover,
+    .next-button:hover,
+    .secondary-button:hover,
+    .share-button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 rgba(77, 47, 34, 0.18), 0 0 24px var(--glow);
+    }
+
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quick-links button {
+      padding: 10px 14px;
+      border: 2px solid rgba(77, 47, 34, 0.65);
+      border-radius: 999px;
+      color: var(--blue);
+      background: rgba(239, 182, 68, 0.18);
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+    }
+
+    .info-drawer {
+      display: none;
+      width: min(740px, 100%);
+      margin: 0 auto;
+      padding: 16px;
+      border: 2px dashed rgba(77, 47, 34, 0.48);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 240, 0.86);
+      text-align: left;
+      line-height: 1.55;
+    }
+
+    .info-drawer.active {
+      display: block;
+    }
+
+    .quiz-screen {
+      align-content: start;
+      gap: 22px;
+    }
+
+    .quiz-top {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .score-pill,
+    .category-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border: 2px solid rgba(77, 47, 34, 0.58);
+      border-radius: 999px;
+      background: rgba(255, 245, 223, 0.82);
+      font-size: 0.9rem;
+    }
+
+    .progress-shell {
+      height: 16px;
+      border: 2px solid var(--coffee);
+      border-radius: 999px;
+      background: rgba(77, 47, 34, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--pumpkin), var(--marigold), var(--leaf));
+      transition: width 260ms ease;
+    }
+
+    .question-card {
+      display: grid;
+      gap: 24px;
+      padding: clamp(18px, 4vw, 32px);
+      border: 2px solid rgba(77, 47, 34, 0.58);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 240, 0.88);
+    }
+
+    .question-text {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(1.45rem, 4vw, 2.25rem);
+      line-height: 1.15;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .answer-button {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 12px;
+      min-height: 76px;
+      padding: 16px;
+      border: 2px solid rgba(77, 47, 34, 0.72);
+      border-radius: var(--radius);
+      color: var(--coffee);
+      background: rgba(255, 245, 223, 0.86);
+      box-shadow: 4px 4px 0 rgba(77, 47, 34, 0.12);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+
+    .answer-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: rgba(239, 182, 68, 0.23);
+      box-shadow: 5px 7px 0 rgba(77, 47, 34, 0.14);
+    }
+
+    .answer-button:disabled {
+      cursor: default;
+    }
+
+    .answer-letter {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--cream);
+      background: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 950;
+    }
+
+    .answer-button.correct {
+      background: rgba(124, 141, 84, 0.26);
+      border-color: var(--leaf);
+    }
+
+    .answer-button.wrong {
+      background: rgba(158, 68, 53, 0.18);
+      border-color: var(--red);
+    }
+
+    .answer-button.selected {
+      box-shadow: 0 0 0 4px rgba(239, 182, 68, 0.32);
+    }
+
+    .feedback-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      min-height: 58px;
+    }
+
+    .feedback {
+      margin: 0;
+      color: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+    }
+
+    .next-button,
+    .secondary-button,
+    .share-button {
+      min-height: 46px;
+      padding: 10px 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .next-button[hidden] {
+      display: none;
+    }
+
+    .results-screen {
+      place-items: center;
+      text-align: center;
+    }
+
+    .results-card {
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+      width: min(760px, 100%);
+      padding: clamp(18px, 4vw, 34px);
+      border: 2px solid rgba(77, 47, 34, 0.58);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 240, 0.9);
+    }
+
+    .score-number {
+      color: var(--pumpkin);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 950;
+      line-height: 1;
+      text-shadow: 3px 3px 0 rgba(77, 47, 34, 0.14);
+    }
+
+    .stars {
+      color: var(--marigold);
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 rgba(77, 47, 34, 0.16);
+    }
+
+    .result-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .secondary-button {
+      color: var(--blue);
+      background: var(--latte);
+    }
+
+    .share-button {
+      background: var(--pumpkin);
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 20px 0 4px;
+      color: var(--blue);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .stars-sign {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 14px;
+      border: 2px solid var(--coffee);
+      border-radius: var(--radius);
+      color: var(--marigold);
+      background: var(--blue);
+      box-shadow: 3px 3px 0 rgba(77, 47, 34, 0.18);
+    }
+
+    .confetti {
+      position: fixed;
+      top: -24px;
+      z-index: 20;
+      font-size: 22px;
+      animation: fall 2200ms linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 0;
+      }
+      12% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(520deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        width: min(100% - 20px, 1080px);
+        padding-top: 16px;
+      }
+
+      .hero {
+        min-height: 190px;
+      }
+
+      .main-panel,
+      .screen {
+        min-height: 560px;
+      }
+
+      .icon-strip {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .answers {
+        grid-template-columns: 1fr;
+      }
+
+      .status-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .answer-button {
+        min-height: 68px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="hero" aria-label="Gilmore Girls Trivia Night">
+      <div class="title-row">
+        <svg class="coffee-icon" viewBox="0 0 120 120" role="img" aria-label="Coffee cup">
+          <path d="M19 43h65v32c0 17-13 29-31 29S19 92 19 75V43Z" fill="#fff5df" stroke="#4d2f22" stroke-width="7" />
+          <path d="M84 53h14c11 0 17 8 15 18-2 12-11 19-27 19" fill="none" stroke="#4d2f22" stroke-width="7" stroke-linecap="round" />
+          <path d="M26 52h51" stroke="#efb644" stroke-width="8" stroke-linecap="round" />
+          <path d="M42 25c-8-9 8-13 1-21M62 25c-8-9 8-13 1-21" stroke="#b9793f" stroke-width="6" stroke-linecap="round" fill="none" />
+        </svg>
+        <h1 class="logo">Gilmore Girls</h1>
+      </div>
+      <p class="tagline">Life's short. Talk fast.</p>
+    </header>
+
+    <section class="main-panel">
+      <div id="homeScreen" class="screen home-screen active">
+        <div class="welcome">
+          <h2>Welcome to Stars Hollow Trivia Night!</h2>
+          <p>Grab coffee, choose a booth, and see if your brain can keep pace with Lorelai and Rory.</p>
+        </div>
+
+        <div class="icon-strip" aria-label="Stars Hollow icons">
+          <span class="flat-icon" title="Luke's mug">☕</span>
+          <span class="flat-icon" title="Paul Anka">PA</span>
+          <span class="flat-icon" title="Chilton crest">CH</span>
+          <span class="flat-icon" title="Yale sweater">Y</span>
+          <span class="flat-icon" title="Takeout">🥡</span>
+          <span class="flat-icon" title="Jeep">▰</span>
+          <span class="flat-icon" title="Black umbrella">☂</span>
+          <span class="flat-icon" title="Stars Hollow sign">SH</span>
+        </div>
+
+        <button id="startButton" class="start-button" type="button">Start Quiz</button>
+
+        <ul class="quick-links" aria-label="Quick links">
+          <li><button type="button" data-info="how">How to Play</button></li>
+          <li><button type="button" data-info="characters">Characters</button></li>
+          <li><button type="button" data-info="scoreboard">Scoreboard</button></li>
+        </ul>
+
+        <div id="infoDrawer" class="info-drawer" aria-live="polite"></div>
+      </div>
+
+      <div id="quizScreen" class="screen quiz-screen">
+        <div class="quiz-top">
+          <div class="status-row">
+            <span id="progressText">Question 1 of 49</span>
+            <span id="categoryText" class="category-pill">Basics</span>
+            <span id="scoreText" class="score-pill">Score 0</span>
+          </div>
+          <div class="progress-shell" aria-hidden="true">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <article class="question-card">
+          <h2 id="questionText" class="question-text"></h2>
+          <div id="answers" class="answers"></div>
+          <div class="feedback-row">
+            <p id="feedback" class="feedback" aria-live="polite"></p>
+            <button id="nextButton" class="next-button" type="button" hidden>Next</button>
+          </div>
+        </article>
+      </div>
+
+      <div id="resultsScreen" class="screen results-screen">
+        <div class="results-card">
+          <h2 id="resultTitle">Rory would be proud!</h2>
+          <div id="scoreNumber" class="score-number">0/51</div>
+          <div id="stars" class="stars" aria-label="Star rating">★★★★★</div>
+          <p id="resultDetails"></p>
+          <div class="result-actions">
+            <button id="restartButton" class="secondary-button" type="button">Restart</button>
+            <button id="shareButton" class="share-button" type="button">Share Score</button>
+          </div>
+          <p id="shareStatus" class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Oy with the poodles already!</span>
+      <span class="stars-sign">Stars Hollow</span>
+    </footer>
+  </main>
+
+  <script>
+    const questions = [
+      { category: "Basics", points: 1, question: "What state is Stars Hollow in?", answers: ["Massachusetts", "Connecticut", "New Hampshire", "Vermont"], correct: 1 },
+      { category: "Basics", points: 1, question: "What year was Stars Hollow founded?", answers: ["1779", "1785", "1802", "1654"], correct: 0 },
+      { category: "Basics", points: 1, question: "What is the population of Stars Hollow?", answers: ["7,452", "9,973", "12,105", "8,621"], correct: 1 },
+      { category: "Basics", points: 1, question: "Who speaks the first line of the series?", answers: ["Rory", "Lorelai", "Luke", "Emily"], correct: 1 },
+      { category: "Bonus Quote", points: 2, question: "Bonus: What is Lorelai's actual first line?", answers: ["Coffee, please!", "Please, Luke. Please, please, please!", "I need pancakes!", "Where's Rory?"], correct: 1 },
+      { category: "Basics", points: 1, question: "Who says the last line in the original series finale, \"Bon Voyage\"?", answers: ["Lorelai", "Emily", "Rory", "Luke"], correct: 2 },
+      { category: "Bonus Quote", points: 2, question: "Bonus: What is Rory's actual final line in the series?", answers: ["I guess so.", "You've given me everything I need.", "Mom?", "I'll miss this place."], correct: 2 },
+      { category: "Basics", points: 1, question: "What is the name of Luke's diner?", answers: ["Doose's Market", "Luke's Diner", "The Dragonfly Cafe", "Al's Pancake World"], correct: 1 },
+      { category: "Basics", points: 1, question: "What business does Mrs. Kim own?", answers: ["A dance studio", "An antiques store", "A bookstore", "A bakery"], correct: 1 },
+      { category: "Basics", points: 1, question: "What was the name of Babette and Morey's cat that died in Season 1?", answers: ["Cinnamon", "Nutmeg", "Pepper", "Vanilla"], correct: 0 },
+      { category: "Basics", points: 1, question: "Where was Gilmore Girls primarily filmed?", answers: ["Toronto", "Los Angeles (Warner Bros. lot)", "Connecticut", "New York City"], correct: 1 },
+      { category: "Basics", points: 1, question: "Who sings the theme song \"Where You Lead\"?", answers: ["Carole King", "Sheryl Crow", "Norah Jones", "Jewel"], correct: 0 },
+      { category: "Characters", points: 1, question: "List Rory's boyfriends in chronological order.", answers: ["Jess, Dean, Logan", "Dean, Logan, Jess", "Dean, Jess, Logan", "Logan, Dean, Jess"], correct: 2 },
+      { category: "Characters", points: 1, question: "What is Lorelai's middle name?", answers: ["Leigh", "Victoria", "Elizabeth", "Marie"], correct: 1 },
+      { category: "Characters", points: 1, question: "What is Rory's full name?", answers: ["Lorelai Leigh Gilmore", "Rory Leigh Gilmore", "Lorelai Victoria Gilmore", "Emily Leigh Gilmore"], correct: 0 },
+      { category: "Characters", points: 1, question: "Where did Richard and Emily meet?", answers: ["At a Yale football game", "At a college party", "On a blind date", "At the DAR"], correct: 1 },
+      { category: "Characters", points: 1, question: "How did Sookie and Jackson meet?", answers: ["At a produce market", "As coworkers at the Independence Inn", "Through Lorelai", "At a town meeting"], correct: 1 },
+      { category: "Characters", points: 1, question: "What is Michel's last name?", answers: ["Gerard", "Dumas", "Laurent", "Moreau"], correct: 0 },
+      { category: "Characters", points: 1, question: "What is April's last name?", answers: ["Danes", "Nardini", "Mariano", "Forester"], correct: 1 },
+      { category: "Characters", points: 1, question: "Who is Luke's daughter?", answers: ["Lane", "April Nardini", "Paris", "Anna"], correct: 1 },
+      { category: "Characters", points: 1, question: "How did Luke find out he had a daughter?", answers: ["Anna told him directly", "Through April's science fair project", "Lorelai told him", "He received a letter"], correct: 1 },
+      { category: "Characters", points: 1, question: "What is Dean's wife's name?", answers: ["Lindsay", "Shannon", "Clara", "Rachel"], correct: 0 },
+      { category: "Characters", points: 1, question: "How many times was Lorelai engaged?", answers: ["Once", "Twice", "Three times", "Never"], correct: 1 },
+      { category: "Characters", points: 1, question: "How many times was Lorelai married?", answers: ["Never", "Once", "Twice", "Three times"], correct: 1 },
+      { category: "Characters", points: 1, question: "Who won the Stars Hollow Dance Marathon in Season 3?", answers: ["Lorelai & Rory", "Dean & Rory", "Kirk", "Miss Patty"], correct: 2 },
+      { category: "Characters", points: 1, question: "What was Luke's high school nickname?", answers: ["Ace", "Butch", "Duke", "Skip"], correct: 1 },
+      { category: "Characters", points: 1, question: "Which annoying Stars Hollow resident bothers Luke the most?", answers: ["Kirk", "Taylor Doose", "Babette", "Miss Patty"], correct: 1 },
+      { category: "Food & Coffee", points: 1, question: "What does Rory accidentally shoplift after her first kiss with Dean?", answers: ["A candy bar", "Cornstarch", "Lip gloss", "A magazine"], correct: 1 },
+      { category: "Food & Coffee", points: 1, question: "What collectible plates do Lorelai and Rory have?", answers: ["Star Wars", "Charlie's Angels", "Friends", "The Golden Girls"], correct: 1 },
+      { category: "Food & Coffee", points: 1, question: "Which famous journalist does Rory idolize?", answers: ["Barbara Walters", "Christiane Amanpour", "Oprah Winfrey", "Katie Couric"], correct: 1 },
+      { category: "Food & Coffee", points: 1, question: "How many yellow daisies does Max bring Lorelai when proposing?", answers: ["500", "1,000", "2,000", "100"], correct: 1 },
+      { category: "Food & Coffee", points: 1, question: "What song does Lorelai sing to Luke at karaoke?", answers: ["Total Eclipse of the Heart", "I Will Always Love You", "Crazy in Love", "Don't Stop Believin'"], correct: 1 },
+      { category: "Schools & Yale", points: 1, question: "Which schools did Rory attend?", answers: ["Chilton, Harvard, Yale", "Stars Hollow High, Chilton, Yale", "Stars Hollow High, Yale only", "Chilton and Harvard"], correct: 1 },
+      { category: "Schools & Yale", points: 1, question: "How many Ivy League schools accepted Rory?", answers: ["One", "Two", "Three", "Four"], correct: 2 },
+      { category: "Schools & Yale", points: 1, question: "What is the name of the secret society Rory joins at Chilton?", answers: ["The Puffs", "The Secret Seven", "The Skull and Bones", "The LDB"], correct: 0 },
+      { category: "Schools & Yale", points: 1, question: "What Yale newspaper does Rory eventually run?", answers: ["The Yale Herald", "The Yale Daily News", "The Yale Record", "The Yale Spectator"], correct: 1 },
+      { category: "Schools & Yale", points: 1, question: "Who are the core members of the Life and Death Brigade?", answers: ["Logan, Colin, Finn", "Logan, Jess, Dean", "Colin, Finn, Marty", "Logan, Rory, Paris"], correct: 0 },
+      { category: "Schools & Yale", points: 1, question: "Why was Rory arrested?", answers: ["Speeding", "Stealing a yacht", "Shoplifting", "Trespassing"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What was going to be the name of Jess's spin-off show?", answers: ["The Bridge", "Windward Circle", "Philadelphia Story", "Stars Hollow Outsider"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What social club is Emily very active in?", answers: ["The Junior League", "Daughters of the American Revolution (DAR)", "The Garden Club", "The Book Club"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "Which actress who plays Emily was also in Dirty Dancing?", answers: ["Lauren Graham", "Kelly Bishop", "Melissa McCarthy", "Liza Weil"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "How old was Keiko Agena when she started playing 15-year-old Lane?", answers: ["19", "26", "22", "30"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What character did Liza Weil originally audition for?", answers: ["Lane", "Paris", "Rory", "Sookie"], correct: 2 },
+      { category: "Harder Trivia", points: 1, question: "What does Lorelai name her dog?", answers: ["Kirk", "Paul Anka", "Max", "Java"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What color does Lorelai paint the inside of Luke's diner?", answers: ["Blue", "Yellow", "Green", "Red"], correct: 2 },
+      { category: "Harder Trivia", points: 1, question: "What is Luke's \"dark day\"?", answers: ["His birthday", "November 30", "The anniversary of his divorce", "Valentine's Day"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "Who was Richard engaged to before Emily?", answers: ["Penelope Lott", "Pennilyn Lott", "Patricia Lott", "Pamela Lott"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What real band is Gil, Hep Alien's guitarist, from?", answers: ["Poison", "Skid Row", "Warrant", "Cinderella"], correct: 1 },
+      { category: "Harder Trivia", points: 1, question: "What inn do Lorelai and Sookie open?", answers: ["The Independence Inn", "The Dragonfly Inn", "The Stars Hollow Inn", "The Cheshire Cat"], correct: 1 }
+    ];
+
+    const totalPoints = questions.reduce((sum, item) => sum + item.points, 0);
+    const letters = ["A", "B", "C", "D"];
+    const cozyFacts = {
+      how: "Answer one question at a time. Main questions are worth 1 point, and the two bonus quote questions are worth 2 points each. The Next button appears once you pick an answer.",
+      characters: "Tonight's guest list includes Lorelai, Rory, Luke, Sookie, Lane, Paris, Emily, Richard, Kirk, Taylor, Michel, and several dangerously memorable boyfriends.",
+      scoreboard: "48-51 points: Lorelai-level fast talker. 38-47: Rory would be proud. 25-37: Friday night dinner regular. Under 25: time for a rewatch and more coffee."
+    };
+
+    const homeScreen = document.getElementById("homeScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultsScreen = document.getElementById("resultsScreen");
+    const startButton = document.getElementById("startButton");
+    const restartButton = document.getElementById("restartButton");
+    const shareButton = document.getElementById("shareButton");
+    const nextButton = document.getElementById("nextButton");
+    const questionText = document.getElementById("questionText");
+    const answersEl = document.getElementById("answers");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const categoryText = document.getElementById("categoryText");
+    const scoreText = document.getElementById("scoreText");
+    const feedback = document.getElementById("feedback");
+    const resultTitle = document.getElementById("resultTitle");
+    const scoreNumber = document.getElementById("scoreNumber");
+    const stars = document.getElementById("stars");
+    const resultDetails = document.getElementById("resultDetails");
+    const shareStatus = document.getElementById("shareStatus");
+    const infoDrawer = document.getElementById("infoDrawer");
+
+    let currentIndex = 0;
+    let score = 0;
+    let selected = false;
+
+    function showScreen(screen) {
+      [homeScreen, quizScreen, resultsScreen].forEach((item) => item.classList.remove("active"));
+      screen.classList.add("active");
+    }
+
+    function startQuiz() {
+      currentIndex = 0;
+      score = 0;
+      selected = false;
+      shareStatus.textContent = "";
+      showScreen(quizScreen);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const item = questions[currentIndex];
+      selected = false;
+      feedback.textContent = "";
+      nextButton.hidden = true;
+      questionText.textContent = item.question;
+      categoryText.textContent = item.category;
+      scoreText.textContent = `Score ${score}`;
+      progressText.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+      progressFill.style.width = `${(currentIndex / questions.length) * 100}%`;
+      answersEl.innerHTML = "";
+
+      item.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.className = "answer-button";
+        button.type = "button";
+        button.innerHTML = `<span class="answer-letter">${letters[index]}</span><span>${answer}</span>`;
+        button.addEventListener("click", () => selectAnswer(index, button));
+        answersEl.appendChild(button);
+      });
+    }
+
+    function selectAnswer(index, button) {
+      if (selected) return;
+      selected = true;
+
+      const item = questions[currentIndex];
+      const isCorrect = index === item.correct;
+      const buttons = [...answersEl.querySelectorAll(".answer-button")];
+      buttons.forEach((answerButton, answerIndex) => {
+        answerButton.disabled = true;
+        if (answerIndex === item.correct) answerButton.classList.add("correct");
+      });
+
+      button.classList.add("selected");
+      if (isCorrect) {
+        score += item.points;
+        feedback.textContent = item.points === 2 ? "Correct! Bonus coffee acquired." : "Correct! Coffee-fueled brilliance.";
+      } else {
+        button.classList.add("wrong");
+        feedback.textContent = `Not quite. The answer was ${letters[item.correct]}.`;
+      }
+
+      scoreText.textContent = `Score ${score}`;
+      progressFill.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
+      nextButton.textContent = currentIndex === questions.length - 1 ? "See Results" : "Next";
+      nextButton.hidden = false;
+    }
+
+    function nextQuestion() {
+      if (currentIndex === questions.length - 1) {
+        showResults();
+        return;
+      }
+
+      currentIndex += 1;
+      renderQuestion();
+    }
+
+    function showResults() {
+      const percentage = Math.round((score / totalPoints) * 100);
+      const starCount = Math.max(1, Math.ceil((percentage / 100) * 5));
+      const title = getResultTitle(percentage);
+      resultTitle.textContent = title;
+      scoreNumber.textContent = `${score}/${totalPoints}`;
+      stars.textContent = "★★★★★".slice(0, starCount) + "☆☆☆☆☆".slice(0, 5 - starCount);
+      resultDetails.textContent = `${percentage}% correct across ${questions.length} questions, including the two bonus quote questions.`;
+      showScreen(resultsScreen);
+
+      if (percentage >= 85) {
+        launchConfetti();
+      }
+    }
+
+    function getResultTitle(percentage) {
+      if (percentage >= 94) return "You're a Lorelai-level fast talker!";
+      if (percentage >= 75) return "Rory would be proud!";
+      if (percentage >= 50) return "A solid Friday night dinner showing.";
+      return "Time for coffee and a cozy rewatch.";
+    }
+
+    function launchConfetti() {
+      const pieces = ["☕", "★", "◆", "✦", "●"];
+      for (let i = 0; i < 42; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.textContent = pieces[i % pieces.length];
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.animationDelay = `${Math.random() * 700}ms`;
+        piece.style.color = ["#d97935", "#efb644", "#193657", "#7c8d54", "#9e4435"][i % 5];
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3200);
+      }
+    }
+
+    async function shareScore() {
+      const text = `I scored ${score}/${totalPoints} on Gilmore Girls Trivia Night. Life's short. Talk fast.`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Gilmore Girls Trivia Night", text });
+          shareStatus.textContent = "Shared from Stars Hollow.";
+          return;
+        } catch (error) {
+          if (error.name === "AbortError") return;
+        }
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        shareStatus.textContent = "Score copied to clipboard.";
+      } catch (error) {
+        shareStatus.textContent = text;
+      }
+    }
+
+    document.querySelectorAll("[data-info]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.getAttribute("data-info");
+        infoDrawer.textContent = cozyFacts[key];
+        infoDrawer.classList.add("active");
+      });
+    });
+
+    startButton.addEventListener("click", startQuiz);
+    restartButton.addEventListener("click", startQuiz);
+    nextButton.addEventListener("click", nextQuestion);
+    shareButton.addEventListener("click", shareScore);
+  </script>
+</body>
+</html>
