@@ -500,6 +500,87 @@
       flex-wrap: wrap;
     }
 
+    .multiplayer-actions,
+    .host-actions,
+    .join-form {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .multiplayer-actions {
+      margin-top: -12px;
+    }
+
+    .host-screen,
+    .join-screen,
+    .player-screen {
+      align-content: start;
+      gap: 20px;
+    }
+
+    .room-code {
+      display: inline-grid;
+      place-items: center;
+      min-width: 190px;
+      min-height: 74px;
+      padding: 10px 18px;
+      border: 3px solid var(--coffee);
+      border-radius: var(--radius);
+      color: var(--marigold);
+      background: var(--blue);
+      box-shadow: 5px 5px 0 rgba(77, 47, 34, 0.2);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 950;
+      letter-spacing: 0.08em;
+    }
+
+    .host-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+      gap: 18px;
+    }
+
+    .team-list,
+    .leaderboard {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .team-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 2px solid rgba(77, 47, 34, 0.4);
+      border-radius: var(--radius);
+      background: rgba(255, 245, 223, 0.72);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+    }
+
+    .join-form input {
+      width: min(280px, 100%);
+      min-height: 48px;
+      padding: 10px 14px;
+      border: 2px solid var(--coffee);
+      border-radius: var(--radius);
+      color: var(--blue);
+      background: rgba(255, 250, 240, 0.94);
+      font: 800 1rem Arial, Helvetica, sans-serif;
+    }
+
+    .join-form input::placeholder {
+      color: rgba(77, 47, 34, 0.55);
+    }
+
     .secondary-button {
       color: var(--blue);
       background: var(--latte);
@@ -582,6 +663,10 @@
         grid-template-columns: 1fr;
       }
 
+      .host-grid {
+        grid-template-columns: 1fr;
+      }
+
       .status-row {
         align-items: flex-start;
         flex-direction: column;
@@ -637,6 +722,11 @@
 
         <button id="startButton" class="start-button" type="button">Start Quiz</button>
 
+        <div class="multiplayer-actions" aria-label="Multiplayer options">
+          <button id="hostGameButton" class="secondary-button" type="button">Host Game</button>
+          <button id="showJoinButton" class="share-button" type="button">Join Game</button>
+        </div>
+
         <ul class="quick-links" aria-label="Quick links">
           <li><button type="button" data-info="how">How to Play</button></li>
           <li><button type="button" data-info="characters">Characters</button></li>
@@ -668,6 +758,69 @@
         </article>
       </div>
 
+      <div id="hostScreen" class="screen host-screen">
+        <div class="question-card">
+          <div class="status-row">
+            <span>Host Screen</span>
+            <span id="hostPhase" class="category-pill">Lobby</span>
+          </div>
+          <div class="welcome">
+            <p>Project this screen. Teams join at this same site using the room code.</p>
+            <span id="roomCode" class="room-code">----</span>
+          </div>
+          <div class="host-actions">
+            <button id="hostStartButton" class="start-button" type="button">Start Game</button>
+            <button id="revealButton" class="secondary-button" type="button">Reveal Answer</button>
+            <button id="hostNextButton" class="share-button" type="button">Next Question</button>
+          </div>
+        </div>
+
+        <div class="host-grid">
+          <article class="question-card">
+            <div class="status-row">
+              <span id="hostProgress">Question 1 of 49</span>
+              <span id="hostCategory" class="category-pill">Basics</span>
+            </div>
+            <h2 id="hostQuestion" class="question-text">Waiting in the lobby...</h2>
+            <div id="hostAnswers" class="answers"></div>
+            <p id="hostFeedback" class="feedback" aria-live="polite"></p>
+          </article>
+
+          <article class="question-card">
+            <h2 class="question-text">Teams</h2>
+            <ul id="teamList" class="team-list"></ul>
+          </article>
+        </div>
+      </div>
+
+      <div id="joinScreen" class="screen join-screen">
+        <article class="question-card">
+          <div class="welcome">
+            <h2>Join Stars Hollow Trivia</h2>
+            <p>Enter the room code from the main screen and your team name.</p>
+          </div>
+          <form id="joinForm" class="join-form">
+            <input id="joinCode" autocomplete="off" maxlength="6" placeholder="Room code" required />
+            <input id="teamName" autocomplete="off" maxlength="30" placeholder="Team name" required />
+            <button class="start-button" type="submit">Join</button>
+          </form>
+          <p id="joinStatus" class="feedback" aria-live="polite"></p>
+        </article>
+      </div>
+
+      <div id="playerScreen" class="screen player-screen">
+        <article class="question-card">
+          <div class="status-row">
+            <span id="playerRoom">Room ----</span>
+            <span id="playerPhase" class="category-pill">Lobby</span>
+            <span id="playerScore" class="score-pill">Score 0</span>
+          </div>
+          <h2 id="playerPrompt" class="question-text">You are in! Watch the main screen for the question.</h2>
+          <div id="playerAnswers" class="answers"></div>
+          <p id="playerFeedback" class="feedback" aria-live="polite"></p>
+        </article>
+      </div>
+
       <div id="resultsScreen" class="screen results-screen">
         <div class="results-card">
           <h2 id="resultTitle">Rory would be proud!</h2>
@@ -689,7 +842,36 @@
     </footer>
   </main>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      collection,
+      doc,
+      getDocs,
+      getFirestore,
+      onSnapshot,
+      orderBy,
+      query,
+      serverTimestamp,
+      setDoc,
+      updateDoc,
+      writeBatch
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0lePnVCTMGJ-YWTA8Zs5bPho85fQ",
+      authDomain: "gilmore-girls-quizz-night.firebaseapp.com",
+      projectId: "gilmore-girls-quizz-night",
+      storageBucket: "gilmore-girls-quizz-night.firebasestorage.app",
+      messagingSenderId: "994292789774",
+      appId: "1:994292789774:web:b883c03c82bec65c39025f"
+    };
+
+    const firebaseReady = !firebaseConfig.apiKey.startsWith("PASTE_");
+    const app = firebaseReady ? initializeApp(firebaseConfig) : null;
+    const auth = firebaseReady ? getAuth(app) : null;
+    const db = firebaseReady ? getFirestore(app) : null;
     const questions = [
       { category: "Basics", points: 1, question: "What state is Stars Hollow in?", answers: ["Massachusetts", "Connecticut", "New Hampshire", "Vermont"], correct: 1 },
       { category: "Basics", points: 1, question: "What year was Stars Hollow founded?", answers: ["1779", "1785", "1802", "1654"], correct: 0 },
@@ -752,8 +934,13 @@
 
     const homeScreen = document.getElementById("homeScreen");
     const quizScreen = document.getElementById("quizScreen");
+    const hostScreen = document.getElementById("hostScreen");
+    const joinScreen = document.getElementById("joinScreen");
+    const playerScreen = document.getElementById("playerScreen");
     const resultsScreen = document.getElementById("resultsScreen");
     const startButton = document.getElementById("startButton");
+    const hostGameButton = document.getElementById("hostGameButton");
+    const showJoinButton = document.getElementById("showJoinButton");
     const restartButton = document.getElementById("restartButton");
     const shareButton = document.getElementById("shareButton");
     const nextButton = document.getElementById("nextButton");
@@ -770,13 +957,42 @@
     const resultDetails = document.getElementById("resultDetails");
     const shareStatus = document.getElementById("shareStatus");
     const infoDrawer = document.getElementById("infoDrawer");
+    const roomCodeEl = document.getElementById("roomCode");
+    const hostPhase = document.getElementById("hostPhase");
+    const hostStartButton = document.getElementById("hostStartButton");
+    const revealButton = document.getElementById("revealButton");
+    const hostNextButton = document.getElementById("hostNextButton");
+    const hostProgress = document.getElementById("hostProgress");
+    const hostCategory = document.getElementById("hostCategory");
+    const hostQuestion = document.getElementById("hostQuestion");
+    const hostAnswers = document.getElementById("hostAnswers");
+    const hostFeedback = document.getElementById("hostFeedback");
+    const teamList = document.getElementById("teamList");
+    const joinForm = document.getElementById("joinForm");
+    const joinCode = document.getElementById("joinCode");
+    const teamName = document.getElementById("teamName");
+    const joinStatus = document.getElementById("joinStatus");
+    const playerRoom = document.getElementById("playerRoom");
+    const playerPhase = document.getElementById("playerPhase");
+    const playerScore = document.getElementById("playerScore");
+    const playerPrompt = document.getElementById("playerPrompt");
+    const playerAnswers = document.getElementById("playerAnswers");
+    const playerFeedback = document.getElementById("playerFeedback");
 
     let currentIndex = 0;
     let score = 0;
     let selected = false;
+    let activeRoomCode = "";
+    let activeTeamId = "";
+    let activeTeamName = "";
+    let unsubRoom = null;
+    let unsubTeams = null;
+    let latestRoom = null;
+    let latestTeams = [];
+    let answeredQuestion = -1;
 
     function showScreen(screen) {
-      [homeScreen, quizScreen, resultsScreen].forEach((item) => item.classList.remove("active"));
+      [homeScreen, quizScreen, hostScreen, joinScreen, playerScreen, resultsScreen].forEach((item) => item.classList.remove("active"));
       screen.classList.add("active");
     }
 
@@ -904,6 +1120,273 @@
       }
     }
 
+    async function ensureFirebase() {
+      if (!firebaseReady) {
+        infoDrawer.textContent = "Firebase is not configured yet. Paste your Firebase web app config into multiplayer.html, then redeploy.";
+        infoDrawer.classList.add("active");
+        showScreen(homeScreen);
+        return false;
+      }
+
+      if (!auth.currentUser) {
+        await signInAnonymously(auth);
+      }
+
+      return true;
+    }
+
+    function makeRoomCode() {
+      const lettersOnly = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      return Array.from({ length: 5 }, () => lettersOnly[Math.floor(Math.random() * lettersOnly.length)]).join("");
+    }
+
+    function cleanRoomCode(value) {
+      return value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+    }
+
+    function stopLiveListeners() {
+      if (unsubRoom) unsubRoom();
+      if (unsubTeams) unsubTeams();
+      unsubRoom = null;
+      unsubTeams = null;
+    }
+
+    async function createHostGame() {
+      if (!(await ensureFirebase())) return;
+
+      stopLiveListeners();
+      activeRoomCode = makeRoomCode();
+      const roomRef = doc(db, "rooms", activeRoomCode);
+      await setDoc(roomRef, {
+        createdAt: serverTimestamp(),
+        currentIndex: 0,
+        phase: "lobby",
+        questionCount: questions.length,
+        totalPoints
+      });
+
+      roomCodeEl.textContent = activeRoomCode;
+      hostFeedback.textContent = "Waiting for teams to join. Coffee encouraged.";
+      showScreen(hostScreen);
+      listenAsHost(activeRoomCode);
+    }
+
+    function listenAsHost(roomCode) {
+      const roomRef = doc(db, "rooms", roomCode);
+      const teamsRef = query(collection(db, "rooms", roomCode, "teams"), orderBy("joinedAt", "asc"));
+
+      unsubRoom = onSnapshot(roomRef, (snapshot) => {
+        latestRoom = snapshot.data();
+        renderHostRoom();
+      });
+
+      unsubTeams = onSnapshot(teamsRef, (snapshot) => {
+        latestTeams = snapshot.docs.map((teamDoc) => ({ id: teamDoc.id, ...teamDoc.data() }));
+        renderHostTeams();
+      });
+    }
+
+    function renderHostRoom() {
+      if (!latestRoom) return;
+
+      const item = questions[latestRoom.currentIndex] || questions[0];
+      hostPhase.textContent = latestRoom.phase;
+      hostProgress.textContent = `Question ${latestRoom.currentIndex + 1} of ${questions.length}`;
+      hostCategory.textContent = item.category;
+      hostQuestion.textContent = latestRoom.phase === "lobby" ? "Waiting in the lobby..." : item.question;
+      hostAnswers.innerHTML = "";
+
+      item.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-button";
+        if (latestRoom.phase === "reveal") {
+          button.classList.toggle("correct", index === item.correct);
+        }
+        button.innerHTML = `<span class="answer-letter">${letters[index]}</span><span>${answer}</span>`;
+        hostAnswers.appendChild(button);
+      });
+
+      hostStartButton.hidden = latestRoom.phase !== "lobby";
+      revealButton.hidden = latestRoom.phase !== "answering";
+      hostNextButton.hidden = latestRoom.phase === "lobby" || latestRoom.phase === "results";
+
+      if (latestRoom.phase === "results") {
+        hostQuestion.textContent = "Final scores are in!";
+        hostFeedback.textContent = "Oy with the poodles already. That's a wrap.";
+      } else if (latestRoom.phase === "reveal") {
+        hostFeedback.textContent = `Correct answer: ${letters[item.correct]}) ${item.answers[item.correct]}`;
+      } else if (latestRoom.phase === "answering") {
+        hostFeedback.textContent = "Teams are answering now.";
+      }
+    }
+
+    function renderHostTeams() {
+      const sorted = [...latestTeams].sort((a, b) => (b.score || 0) - (a.score || 0));
+      teamList.innerHTML = sorted.length ? "" : "<li class=\"team-row\">No teams yet</li>";
+
+      sorted.forEach((team) => {
+        const row = document.createElement("li");
+        row.className = "team-row";
+        row.innerHTML = `<span>${team.name}</span><strong>${team.score || 0}</strong>`;
+        teamList.appendChild(row);
+      });
+    }
+
+    async function startHostQuestion() {
+      if (!activeRoomCode || !latestRoom) return;
+      await updateDoc(doc(db, "rooms", activeRoomCode), { phase: "answering", currentIndex: 0 });
+    }
+
+    async function revealHostAnswer() {
+      if (!activeRoomCode || !latestRoom || latestRoom.phase !== "answering") return;
+
+      const item = questions[latestRoom.currentIndex];
+      const answersSnapshot = await getDocs(collection(db, "rooms", activeRoomCode, "answers"));
+      const batch = writeBatch(db);
+      const scoreByTeam = new Map(latestTeams.map((team) => [team.id, team.score || 0]));
+
+      answersSnapshot.docs.forEach((answerDoc) => {
+        const answer = answerDoc.data();
+        if (answer.questionIndex === latestRoom.currentIndex && answer.choice === item.correct) {
+          scoreByTeam.set(answer.teamId, (scoreByTeam.get(answer.teamId) || 0) + item.points);
+        }
+      });
+
+      latestTeams.forEach((team) => {
+        batch.update(doc(db, "rooms", activeRoomCode, "teams", team.id), { score: scoreByTeam.get(team.id) || 0 });
+      });
+
+      batch.update(doc(db, "rooms", activeRoomCode), { phase: "reveal" });
+      await batch.commit();
+    }
+
+    async function hostNextQuestion() {
+      if (!activeRoomCode || !latestRoom) return;
+
+      if (latestRoom.currentIndex >= questions.length - 1) {
+        await updateDoc(doc(db, "rooms", activeRoomCode), { phase: "results" });
+        return;
+      }
+
+      const answersSnapshot = await getDocs(collection(db, "rooms", activeRoomCode, "answers"));
+      const batch = writeBatch(db);
+      answersSnapshot.docs.forEach((answerDoc) => batch.delete(answerDoc.ref));
+      batch.update(doc(db, "rooms", activeRoomCode), {
+        currentIndex: latestRoom.currentIndex + 1,
+        phase: "answering"
+      });
+      await batch.commit();
+    }
+
+    function showJoinGame() {
+      joinStatus.textContent = firebaseReady ? "" : "Firebase is not configured yet. Add your Firebase config first.";
+      showScreen(joinScreen);
+    }
+
+    async function joinGame(event) {
+      event.preventDefault();
+      if (!(await ensureFirebase())) return;
+
+      stopLiveListeners();
+      activeRoomCode = cleanRoomCode(joinCode.value);
+      activeTeamName = teamName.value.trim();
+      activeTeamId = localStorage.getItem(`gilmore-team-${activeRoomCode}`) || crypto.randomUUID();
+      localStorage.setItem(`gilmore-team-${activeRoomCode}`, activeTeamId);
+
+      if (!activeRoomCode || !activeTeamName) {
+        joinStatus.textContent = "Add a room code and team name.";
+        return;
+      }
+
+      await setDoc(doc(db, "rooms", activeRoomCode, "teams", activeTeamId), {
+        joinedAt: serverTimestamp(),
+        name: activeTeamName,
+        score: 0
+      }, { merge: true });
+
+      answeredQuestion = -1;
+      playerRoom.textContent = `Room ${activeRoomCode}`;
+      showScreen(playerScreen);
+      listenAsPlayer(activeRoomCode);
+    }
+
+    function listenAsPlayer(roomCode) {
+      unsubRoom = onSnapshot(doc(db, "rooms", roomCode), (snapshot) => {
+        if (!snapshot.exists()) {
+          playerPrompt.textContent = "Room not found. Check the code on the main screen.";
+          return;
+        }
+
+        latestRoom = snapshot.data();
+        renderPlayerRoom();
+      });
+
+      unsubTeams = onSnapshot(doc(db, "rooms", roomCode, "teams", activeTeamId), (snapshot) => {
+        const team = snapshot.data();
+        playerScore.textContent = `Score ${team?.score || 0}`;
+      });
+    }
+
+    function renderPlayerRoom() {
+      if (!latestRoom) return;
+
+      const item = questions[latestRoom.currentIndex] || questions[0];
+      playerPhase.textContent = latestRoom.phase;
+      playerAnswers.innerHTML = "";
+
+      if (latestRoom.phase === "lobby") {
+        playerPrompt.textContent = "You're in! Watch the main screen. The host will start soon.";
+        playerFeedback.textContent = "";
+        return;
+      }
+
+      if (latestRoom.phase === "results") {
+        playerPrompt.textContent = "Final scores are on the main screen.";
+        playerFeedback.textContent = "Thanks for playing, Stars Hollow style.";
+        return;
+      }
+
+      playerPrompt.textContent = latestRoom.phase === "reveal"
+        ? `Correct answer: ${letters[item.correct]}) ${item.answers[item.correct]}`
+        : "Pick your answer. The question is on the main screen.";
+
+      item.answers.forEach((answer, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "answer-button";
+        button.disabled = latestRoom.phase !== "answering" || answeredQuestion === latestRoom.currentIndex;
+        if (latestRoom.phase === "reveal") {
+          button.classList.toggle("correct", index === item.correct);
+        }
+        button.innerHTML = `<span class="answer-letter">${letters[index]}</span><span>${answer}</span>`;
+        button.addEventListener("click", () => submitPlayerAnswer(index));
+        playerAnswers.appendChild(button);
+      });
+
+      if (latestRoom.phase === "answering") {
+        playerFeedback.textContent = answeredQuestion === latestRoom.currentIndex
+          ? "Answer locked. Talk fast, wait calmly."
+          : "";
+      }
+    }
+
+    async function submitPlayerAnswer(choice) {
+      if (!activeRoomCode || !activeTeamId || !latestRoom || latestRoom.phase !== "answering") return;
+
+      await setDoc(doc(db, "rooms", activeRoomCode, "answers", `${latestRoom.currentIndex}_${activeTeamId}`), {
+        answeredAt: serverTimestamp(),
+        choice,
+        questionIndex: latestRoom.currentIndex,
+        teamId: activeTeamId,
+        teamName: activeTeamName
+      });
+
+      answeredQuestion = latestRoom.currentIndex;
+      playerFeedback.textContent = "Answer locked.";
+      renderPlayerRoom();
+    }
+
     document.querySelectorAll("[data-info]").forEach((button) => {
       button.addEventListener("click", () => {
         const key = button.getAttribute("data-info");
@@ -913,6 +1396,12 @@
     });
 
     startButton.addEventListener("click", startQuiz);
+    hostGameButton.addEventListener("click", createHostGame);
+    showJoinButton.addEventListener("click", showJoinGame);
+    joinForm.addEventListener("submit", joinGame);
+    hostStartButton.addEventListener("click", startHostQuestion);
+    revealButton.addEventListener("click", revealHostAnswer);
+    hostNextButton.addEventListener("click", hostNextQuestion);
     restartButton.addEventListener("click", startQuiz);
     nextButton.addEventListener("click", nextQuestion);
     shareButton.addEventListener("click", shareScore);
