@@ -1120,16 +1120,30 @@
       }
     }
 
-    async function ensureFirebase() {
+    function showFirebaseError(error, target = infoDrawer) {
+      const code = error?.code ? ` (${error.code})` : "";
+      target.textContent = `Firebase error${code}: ${error?.message || "Something went wrong."}`;
+      target.classList?.add("active");
+      console.error(error);
+    }
+
+    async function ensureFirebase(statusTarget = infoDrawer) {
       if (!firebaseReady) {
-        infoDrawer.textContent = "Firebase is not configured yet. Paste your Firebase web app config into multiplayer.html, then redeploy.";
-        infoDrawer.classList.add("active");
+        statusTarget.textContent = "Firebase is not configured yet. Paste your Firebase web app config into multiplayer.html, then redeploy.";
+        statusTarget.classList?.add("active");
         showScreen(homeScreen);
         return false;
       }
 
-      if (!auth.currentUser) {
-        await signInAnonymously(auth);
+      try {
+        if (!auth.currentUser) {
+          statusTarget.textContent = "Connecting to Firebase...";
+          statusTarget.classList?.add("active");
+          await signInAnonymously(auth);
+        }
+      } catch (error) {
+        showFirebaseError(error, statusTarget);
+        return false;
       }
 
       return true;
@@ -1152,23 +1166,34 @@
     }
 
     async function createHostGame() {
-      if (!(await ensureFirebase())) return;
+      hostGameButton.disabled = true;
+      infoDrawer.textContent = "Starting host game...";
+      infoDrawer.classList.add("active");
 
-      stopLiveListeners();
-      activeRoomCode = makeRoomCode();
-      const roomRef = doc(db, "rooms", activeRoomCode);
-      await setDoc(roomRef, {
-        createdAt: serverTimestamp(),
-        currentIndex: 0,
-        phase: "lobby",
-        questionCount: questions.length,
-        totalPoints
-      });
+      try {
+        if (!(await ensureFirebase(infoDrawer))) return;
 
-      roomCodeEl.textContent = activeRoomCode;
-      hostFeedback.textContent = "Waiting for teams to join. Coffee encouraged.";
-      showScreen(hostScreen);
-      listenAsHost(activeRoomCode);
+        stopLiveListeners();
+        activeRoomCode = makeRoomCode();
+        const roomRef = doc(db, "rooms", activeRoomCode);
+        infoDrawer.textContent = "Creating room...";
+        await setDoc(roomRef, {
+          createdAt: serverTimestamp(),
+          currentIndex: 0,
+          phase: "lobby",
+          questionCount: questions.length,
+          totalPoints
+        });
+
+        roomCodeEl.textContent = activeRoomCode;
+        hostFeedback.textContent = "Waiting for teams to join. Coffee encouraged.";
+        showScreen(hostScreen);
+        listenAsHost(activeRoomCode);
+      } catch (error) {
+        showFirebaseError(error, infoDrawer);
+      } finally {
+        hostGameButton.disabled = false;
+      }
     }
 
     function listenAsHost(roomCode) {
@@ -1286,29 +1311,34 @@
 
     async function joinGame(event) {
       event.preventDefault();
-      if (!(await ensureFirebase())) return;
+      joinStatus.textContent = "Joining game...";
+      try {
+        if (!(await ensureFirebase(joinStatus))) return;
 
-      stopLiveListeners();
-      activeRoomCode = cleanRoomCode(joinCode.value);
-      activeTeamName = teamName.value.trim();
-      activeTeamId = localStorage.getItem(`gilmore-team-${activeRoomCode}`) || crypto.randomUUID();
-      localStorage.setItem(`gilmore-team-${activeRoomCode}`, activeTeamId);
+        stopLiveListeners();
+        activeRoomCode = cleanRoomCode(joinCode.value);
+        activeTeamName = teamName.value.trim();
+        activeTeamId = localStorage.getItem(`gilmore-team-${activeRoomCode}`) || crypto.randomUUID();
+        localStorage.setItem(`gilmore-team-${activeRoomCode}`, activeTeamId);
 
-      if (!activeRoomCode || !activeTeamName) {
-        joinStatus.textContent = "Add a room code and team name.";
-        return;
+        if (!activeRoomCode || !activeTeamName) {
+          joinStatus.textContent = "Add a room code and team name.";
+          return;
+        }
+
+        await setDoc(doc(db, "rooms", activeRoomCode, "teams", activeTeamId), {
+          joinedAt: serverTimestamp(),
+          name: activeTeamName,
+          score: 0
+        }, { merge: true });
+
+        answeredQuestion = -1;
+        playerRoom.textContent = `Room ${activeRoomCode}`;
+        showScreen(playerScreen);
+        listenAsPlayer(activeRoomCode);
+      } catch (error) {
+        showFirebaseError(error, joinStatus);
       }
-
-      await setDoc(doc(db, "rooms", activeRoomCode, "teams", activeTeamId), {
-        joinedAt: serverTimestamp(),
-        name: activeTeamName,
-        score: 0
-      }, { merge: true });
-
-      answeredQuestion = -1;
-      playerRoom.textContent = `Room ${activeRoomCode}`;
-      showScreen(playerScreen);
-      listenAsPlayer(activeRoomCode);
     }
 
     function listenAsPlayer(roomCode) {
