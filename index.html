@@ -5,21 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gilmore Girls Trivia Night</title>
   <style>
+    /*
+      Use the Stars Hollow design style for this build. Fonts: Playfair Display for
+      headings/display and Didact Gothic for body/UI. Palette: deep green, coffee,
+      autumn red, gold, soft blue, sage, cream, parchment, and ink. Tone: literary,
+      nostalgic, hand-crafted, autumnal, and coffee-shop cozy.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Didact+Gothic&display=swap');
+
     :root {
-      --cream: #fff5df;
-      --paper: #fffaf0;
-      --latte: #dfc49a;
-      --caramel: #b9793f;
-      --pumpkin: #d97935;
-      --marigold: #efb644;
-      --coffee: #4d2f22;
-      --ink: #26364b;
-      --blue: #193657;
-      --leaf: #7c8d54;
-      --red: #9e4435;
-      --shadow: rgba(43, 29, 22, 0.16);
-      --glow: rgba(239, 182, 68, 0.45);
-      --radius: 8px;
+      --deep-green: #2d4a3e;
+      --coffee: #5c3d2e;
+      --autumn-red: #8b3a3a;
+      --gold: #c4a265;
+      --soft-blue: #7a9bb5;
+      --sage: #b8c9b8;
+      --cream: #f7f2e8;
+      --parchment: #ede5d0;
+      --ink: #2a1f14;
+      --paper: var(--parchment);
+      --latte: var(--sage);
+      --caramel: var(--coffee);
+      --pumpkin: var(--autumn-red);
+      --marigold: var(--gold);
+      --blue: var(--deep-green);
+      --leaf: var(--sage);
+      --red: var(--autumn-red);
+      --shadow: rgba(44, 31, 20, 0.10);
+      --glow: rgba(196, 162, 101, 0.35);
+      --radius: 4px;
     }
 
     * {
@@ -58,7 +72,7 @@
     }
 
     body::after {
-      content: "☕  ◇  ✦  ▱  ☕  ◌  ✦";
+      content: "â˜•  â—‡  âœ¦  â–±  â˜•  â—Œ  âœ¦";
       position: fixed;
       inset: auto -20px 24px auto;
       z-index: -1;
@@ -685,6 +699,416 @@
         transition-duration: 0.001ms !important;
       }
     }
+
+    /* Stars Hollow style guide refinement layer */
+    body {
+      color: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 18px 18px, rgba(92, 61, 46, 0.08) 0 1px, transparent 2px),
+        radial-gradient(circle at 72px 48px, rgba(196, 162, 101, 0.12) 0 1px, transparent 2px),
+        linear-gradient(135deg, rgba(184, 201, 184, 0.16) 0 1px, transparent 1px 40px),
+        var(--cream);
+      background-size: 96px 96px, 112px 112px, 40px 40px, auto;
+    }
+
+    body::before {
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(196, 162, 101, 0.18), transparent 42%),
+        linear-gradient(rgba(247, 242, 232, 0.84), rgba(247, 242, 232, 0.84));
+      box-shadow: inset 0 0 120px rgba(92, 61, 46, 0.08);
+    }
+
+    body::after {
+      content: "âœ¦  â§  âœ¦  â§  âœ¦";
+      color: rgba(196, 162, 101, 0.16);
+      font-family: "Playfair Display", serif;
+      letter-spacing: 0.28em;
+    }
+
+    .app {
+      width: min(1160px, calc(100% - 32px));
+      padding: 28px 0 22px;
+    }
+
+    .hero {
+      min-height: 320px;
+      margin-bottom: 20px;
+      padding: 72px 56px;
+      border: 1px solid rgba(196, 162, 101, 0.42);
+      border-radius: 4px;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at center, rgba(92, 61, 46, 0.55), transparent 46%),
+        linear-gradient(135deg, rgba(45, 74, 62, 0.98), var(--deep-green));
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.08), 0 1px 6px rgba(44, 31, 20, 0.06);
+    }
+
+    .hero::before {
+      content: "âœ¦";
+      color: var(--gold);
+      font: 400 18px/1 "Playfair Display", serif;
+      letter-spacing: 0.5em;
+    }
+
+    .hero::after {
+      content: "";
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.86;
+    }
+
+    .title-row {
+      gap: 18px;
+    }
+
+    .logo {
+      color: var(--gold);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(3.2rem, 7vw, 4rem);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.05;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    .coffee-icon {
+      width: clamp(48px, 7vw, 68px);
+      height: clamp(48px, 7vw, 68px);
+      filter: none;
+    }
+
+    .tagline {
+      color: rgba(255, 255, 255, 0.55);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+    }
+
+    .main-panel {
+      border: 1px solid var(--sage);
+      border-radius: 4px;
+      background:
+        linear-gradient(rgba(247, 242, 232, 0.78), rgba(247, 242, 232, 0.78)),
+        radial-gradient(circle at 20% 10%, rgba(196, 162, 101, 0.14), transparent 32%),
+        var(--parchment);
+      box-shadow: inset 0 0 60px rgba(92, 61, 46, 0.04), 0 1px 6px rgba(44, 31, 20, 0.06);
+    }
+
+    .main-panel::before {
+      background:
+        linear-gradient(90deg, transparent 0 49%, rgba(196, 162, 101, 0.16) 50%, transparent 51%),
+        radial-gradient(circle at 8% 12%, rgba(184, 201, 184, 0.22), transparent 22%),
+        radial-gradient(circle at 92% 88%, rgba(92, 61, 46, 0.08), transparent 24%);
+      opacity: 0.8;
+    }
+
+    .screen {
+      padding: 72px 56px;
+    }
+
+    .welcome h2,
+    .results-card h2,
+    .question-text {
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .welcome h2,
+    .results-card h2 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.08;
+    }
+
+    .welcome p,
+    .results-card p,
+    .info-drawer,
+    .feedback {
+      color: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .icon-strip {
+      gap: 20px;
+    }
+
+    .flat-icon {
+      border: 1px solid var(--sage);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      background: rgba(237, 229, 208, 0.78);
+      box-shadow: 0 1px 6px rgba(44, 31, 20, 0.06);
+      color: var(--coffee);
+      font-family: "Playfair Display", Georgia, serif;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .flat-icon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 24px rgba(44, 31, 20, 0.10);
+    }
+
+    .start-button,
+    .next-button,
+    .secondary-button,
+    .share-button,
+    .quick-links button,
+    .join-form input {
+      border-radius: 3px;
+      font-family: "Didact Gothic", Arial, sans-serif;
+      letter-spacing: 0.1em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+
+    .start-button,
+    .share-button {
+      border: 1px solid var(--autumn-red);
+      color: var(--cream);
+      background: var(--autumn-red);
+      box-shadow: 0 1px 6px rgba(44, 31, 20, 0.06);
+    }
+
+    .start-button::before,
+    .start-button::after {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      box-shadow: none;
+    }
+
+    .secondary-button,
+    .next-button {
+      border: 1px solid var(--sage);
+      color: var(--deep-green);
+      background: var(--parchment);
+      box-shadow: 0 1px 6px rgba(44, 31, 20, 0.06);
+    }
+
+    .start-button:hover,
+    .next-button:hover,
+    .secondary-button:hover,
+    .share-button:hover,
+    .quick-links button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(139, 58, 58, 0.28);
+    }
+
+    .start-button:hover,
+    .share-button:hover {
+      background: #6b2a2a;
+    }
+
+    .quick-links button,
+    .score-pill,
+    .category-pill {
+      border: 1px solid var(--sage);
+      border-radius: 3px;
+      color: var(--coffee);
+      background: var(--parchment);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .quick-links button:hover,
+    .score-pill:hover,
+    .category-pill:hover {
+      background: var(--sage);
+    }
+
+    .info-drawer,
+    .question-card,
+    .results-card {
+      position: relative;
+      border: 1px solid var(--sage);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      background: rgba(247, 242, 232, 0.88);
+      box-shadow: 0 1px 6px rgba(44, 31, 20, 0.06);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .question-card:hover,
+    .results-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 24px rgba(44, 31, 20, 0.10);
+    }
+
+    .question-card::after,
+    .results-card::after {
+      content: "âœ¦";
+      position: absolute;
+      right: 18px;
+      bottom: 6px;
+      color: var(--ink);
+      font: 900 86px/1 "Playfair Display", Georgia, serif;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .status-row {
+      color: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+    }
+
+    .status-row::before {
+      content: "";
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .progress-shell {
+      height: 10px;
+      border: 1px solid var(--sage);
+      border-radius: 3px;
+      background: rgba(184, 201, 184, 0.28);
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, var(--autumn-red), var(--gold));
+    }
+
+    .answer-button {
+      border: 1px solid var(--sage);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      background: var(--cream);
+      box-shadow: 0 1px 6px rgba(44, 31, 20, 0.06);
+      color: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      line-height: 1.5;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .answer-button:hover:not(:disabled) {
+      transform: translateY(-3px);
+      background: var(--parchment);
+      box-shadow: 0 4px 24px rgba(44, 31, 20, 0.10);
+    }
+
+    .answer-letter {
+      border-radius: 3px;
+      color: var(--cream);
+      background: var(--deep-green);
+      font-family: "Didact Gothic", Arial, sans-serif;
+    }
+
+    .answer-button.correct {
+      border-color: var(--sage);
+      border-left-color: var(--deep-green);
+      background: rgba(184, 201, 184, 0.35);
+    }
+
+    .answer-button.wrong {
+      border-color: rgba(139, 58, 58, 0.5);
+      border-left-color: var(--autumn-red);
+      background: rgba(139, 58, 58, 0.10);
+    }
+
+    .room-code {
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      color: var(--gold);
+      background: var(--deep-green);
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.08), 0 1px 6px rgba(44, 31, 20, 0.06);
+    }
+
+    .team-row {
+      border: 1px solid var(--sage);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      background: var(--parchment);
+      color: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+    }
+
+    .join-form input {
+      border: 1px solid var(--sage);
+      color: var(--ink);
+      background: var(--cream);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .score-number {
+      color: var(--autumn-red);
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      text-shadow: none;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-family: "Playfair Display", Georgia, serif;
+      text-shadow: none;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding: 28px 20px;
+      border-radius: 4px;
+      color: rgba(255, 255, 255, 0.62);
+      background: var(--coffee);
+      font-family: "Didact Gothic", Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.08);
+    }
+
+    .stars-sign {
+      border: 1px solid var(--gold);
+      border-radius: 3px;
+      color: var(--gold);
+      background: var(--deep-green);
+      box-shadow: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .screen {
+        padding: 48px 28px;
+      }
+
+      .logo {
+        font-size: 44px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero,
+      .screen {
+        padding: 32px 20px;
+      }
+
+      .logo {
+        font-size: 32px;
+      }
+
+      .quick-links,
+      .multiplayer-actions,
+      .host-actions,
+      .join-form {
+        align-items: stretch;
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
@@ -710,13 +1134,13 @@
         </div>
 
         <div class="icon-strip" aria-label="Stars Hollow icons">
-          <span class="flat-icon" title="Luke's mug">☕</span>
+          <span class="flat-icon" title="Luke's mug">â˜•</span>
           <span class="flat-icon" title="Paul Anka">PA</span>
           <span class="flat-icon" title="Chilton crest">CH</span>
           <span class="flat-icon" title="Yale sweater">Y</span>
-          <span class="flat-icon" title="Takeout">🥡</span>
-          <span class="flat-icon" title="Jeep">▰</span>
-          <span class="flat-icon" title="Black umbrella">☂</span>
+          <span class="flat-icon" title="Takeout">ðŸ¥¡</span>
+          <span class="flat-icon" title="Jeep">â–°</span>
+          <span class="flat-icon" title="Black umbrella">â˜‚</span>
           <span class="flat-icon" title="Stars Hollow sign">SH</span>
         </div>
 
@@ -825,7 +1249,7 @@
         <div class="results-card">
           <h2 id="resultTitle">Rory would be proud!</h2>
           <div id="scoreNumber" class="score-number">0/51</div>
-          <div id="stars" class="stars" aria-label="Star rating">★★★★★</div>
+          <div id="stars" class="stars" aria-label="Star rating">â˜…â˜…â˜…â˜…â˜…</div>
           <p id="resultDetails"></p>
           <div class="result-actions">
             <button id="restartButton" class="secondary-button" type="button">Restart</button>
@@ -873,63 +1297,1966 @@
     const auth = firebaseReady ? getAuth(app) : null;
     const db = firebaseReady ? getFirestore(app) : null;
     const questions = [
-      { category: "Basics", points: 1, question: "What state is Stars Hollow in?", answers: ["Massachusetts", "Connecticut", "New Hampshire", "Vermont"], correct: 1 },
-      { category: "Basics", points: 1, question: "What year was Stars Hollow founded?", answers: ["1779", "1785", "1802", "1654"], correct: 0 },
-      { category: "Basics", points: 1, question: "What is the population of Stars Hollow?", answers: ["7,452", "9,973", "12,105", "8,621"], correct: 1 },
-      { category: "Basics", points: 1, question: "Who speaks the first line of the series?", answers: ["Rory", "Lorelai", "Luke", "Emily"], correct: 1 },
-      { category: "Bonus Quote", points: 2, question: "Bonus: What is Lorelai's actual first line?", answers: ["Coffee, please!", "Please, Luke. Please, please, please!", "I need pancakes!", "Where's Rory?"], correct: 1 },
-      { category: "Basics", points: 1, question: "Who says the last line in the original series finale, \"Bon Voyage\"?", answers: ["Lorelai", "Emily", "Rory", "Luke"], correct: 2 },
-      { category: "Bonus Quote", points: 2, question: "Bonus: What is Rory's actual final line in the series?", answers: ["I guess so.", "You've given me everything I need.", "Mom?", "I'll miss this place."], correct: 2 },
-      { category: "Basics", points: 1, question: "What is the name of Luke's diner?", answers: ["Doose's Market", "Luke's Diner", "The Dragonfly Cafe", "Al's Pancake World"], correct: 1 },
-      { category: "Basics", points: 1, question: "What business does Mrs. Kim own?", answers: ["A dance studio", "An antiques store", "A bookstore", "A bakery"], correct: 1 },
-      { category: "Basics", points: 1, question: "What was the name of Babette and Morey's cat that died in Season 1?", answers: ["Cinnamon", "Nutmeg", "Pepper", "Vanilla"], correct: 0 },
-      { category: "Basics", points: 1, question: "Where was Gilmore Girls primarily filmed?", answers: ["Toronto", "Los Angeles (Warner Bros. lot)", "Connecticut", "New York City"], correct: 1 },
-      { category: "Basics", points: 1, question: "Who sings the theme song \"Where You Lead\"?", answers: ["Carole King", "Sheryl Crow", "Norah Jones", "Jewel"], correct: 0 },
-      { category: "Characters", points: 1, question: "List Rory's boyfriends in chronological order.", answers: ["Jess, Dean, Logan", "Dean, Logan, Jess", "Dean, Jess, Logan", "Logan, Dean, Jess"], correct: 2 },
-      { category: "Characters", points: 1, question: "What is Lorelai's middle name?", answers: ["Leigh", "Victoria", "Elizabeth", "Marie"], correct: 1 },
-      { category: "Characters", points: 1, question: "What is Rory's full name?", answers: ["Lorelai Leigh Gilmore", "Rory Leigh Gilmore", "Lorelai Victoria Gilmore", "Emily Leigh Gilmore"], correct: 0 },
-      { category: "Characters", points: 1, question: "Where did Richard and Emily meet?", answers: ["At a Yale football game", "At a college party", "On a blind date", "At the DAR"], correct: 1 },
-      { category: "Characters", points: 1, question: "How did Sookie and Jackson meet?", answers: ["At a produce market", "As coworkers at the Independence Inn", "Through Lorelai", "At a town meeting"], correct: 1 },
-      { category: "Characters", points: 1, question: "What is Michel's last name?", answers: ["Gerard", "Dumas", "Laurent", "Moreau"], correct: 0 },
-      { category: "Characters", points: 1, question: "What is April's last name?", answers: ["Danes", "Nardini", "Mariano", "Forester"], correct: 1 },
-      { category: "Characters", points: 1, question: "Who is Luke's daughter?", answers: ["Lane", "April Nardini", "Paris", "Anna"], correct: 1 },
-      { category: "Characters", points: 1, question: "How did Luke find out he had a daughter?", answers: ["Anna told him directly", "Through April's science fair project", "Lorelai told him", "He received a letter"], correct: 1 },
-      { category: "Characters", points: 1, question: "What is Dean's wife's name?", answers: ["Lindsay", "Shannon", "Clara", "Rachel"], correct: 0 },
-      { category: "Characters", points: 1, question: "How many times was Lorelai engaged?", answers: ["Once", "Twice", "Three times", "Never"], correct: 1 },
-      { category: "Characters", points: 1, question: "How many times was Lorelai married?", answers: ["Never", "Once", "Twice", "Three times"], correct: 1 },
-      { category: "Characters", points: 1, question: "Who won the Stars Hollow Dance Marathon in Season 3?", answers: ["Lorelai & Rory", "Dean & Rory", "Kirk", "Miss Patty"], correct: 2 },
-      { category: "Characters", points: 1, question: "What was Luke's high school nickname?", answers: ["Ace", "Butch", "Duke", "Skip"], correct: 1 },
-      { category: "Characters", points: 1, question: "Which annoying Stars Hollow resident bothers Luke the most?", answers: ["Kirk", "Taylor Doose", "Babette", "Miss Patty"], correct: 1 },
-      { category: "Food & Coffee", points: 1, question: "What does Rory accidentally shoplift after her first kiss with Dean?", answers: ["A candy bar", "Cornstarch", "Lip gloss", "A magazine"], correct: 1 },
-      { category: "Food & Coffee", points: 1, question: "What collectible plates do Lorelai and Rory have?", answers: ["Star Wars", "Charlie's Angels", "Friends", "The Golden Girls"], correct: 1 },
-      { category: "Food & Coffee", points: 1, question: "Which famous journalist does Rory idolize?", answers: ["Barbara Walters", "Christiane Amanpour", "Oprah Winfrey", "Katie Couric"], correct: 1 },
-      { category: "Food & Coffee", points: 1, question: "How many yellow daisies does Max bring Lorelai when proposing?", answers: ["500", "1,000", "2,000", "100"], correct: 1 },
-      { category: "Food & Coffee", points: 1, question: "What song does Lorelai sing to Luke at karaoke?", answers: ["Total Eclipse of the Heart", "I Will Always Love You", "Crazy in Love", "Don't Stop Believin'"], correct: 1 },
-      { category: "Schools & Yale", points: 1, question: "Which schools did Rory attend?", answers: ["Chilton, Harvard, Yale", "Stars Hollow High, Chilton, Yale", "Stars Hollow High, Yale only", "Chilton and Harvard"], correct: 1 },
-      { category: "Schools & Yale", points: 1, question: "How many Ivy League schools accepted Rory?", answers: ["One", "Two", "Three", "Four"], correct: 2 },
-      { category: "Schools & Yale", points: 1, question: "What is the name of the secret society Rory joins at Chilton?", answers: ["The Puffs", "The Secret Seven", "The Skull and Bones", "The LDB"], correct: 0 },
-      { category: "Schools & Yale", points: 1, question: "What Yale newspaper does Rory eventually run?", answers: ["The Yale Herald", "The Yale Daily News", "The Yale Record", "The Yale Spectator"], correct: 1 },
-      { category: "Schools & Yale", points: 1, question: "Who are the core members of the Life and Death Brigade?", answers: ["Logan, Colin, Finn", "Logan, Jess, Dean", "Colin, Finn, Marty", "Logan, Rory, Paris"], correct: 0 },
-      { category: "Schools & Yale", points: 1, question: "Why was Rory arrested?", answers: ["Speeding", "Stealing a yacht", "Shoplifting", "Trespassing"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What was going to be the name of Jess's spin-off show?", answers: ["The Bridge", "Windward Circle", "Philadelphia Story", "Stars Hollow Outsider"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What social club is Emily very active in?", answers: ["The Junior League", "Daughters of the American Revolution (DAR)", "The Garden Club", "The Book Club"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "Which actress who plays Emily was also in Dirty Dancing?", answers: ["Lauren Graham", "Kelly Bishop", "Melissa McCarthy", "Liza Weil"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "How old was Keiko Agena when she started playing 15-year-old Lane?", answers: ["19", "26", "22", "30"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What character did Liza Weil originally audition for?", answers: ["Lane", "Paris", "Rory", "Sookie"], correct: 2 },
-      { category: "Harder Trivia", points: 1, question: "What does Lorelai name her dog?", answers: ["Kirk", "Paul Anka", "Max", "Java"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What color does Lorelai paint the inside of Luke's diner?", answers: ["Blue", "Yellow", "Green", "Red"], correct: 2 },
-      { category: "Harder Trivia", points: 1, question: "What is Luke's \"dark day\"?", answers: ["His birthday", "November 30", "The anniversary of his divorce", "Valentine's Day"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "Who was Richard engaged to before Emily?", answers: ["Penelope Lott", "Pennilyn Lott", "Patricia Lott", "Pamela Lott"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What real band is Gil, Hep Alien's guitarist, from?", answers: ["Poison", "Skid Row", "Warrant", "Cinderella"], correct: 1 },
-      { category: "Harder Trivia", points: 1, question: "What inn do Lorelai and Sookie open?", answers: ["The Independence Inn", "The Dragonfly Inn", "The Stars Hollow Inn", "The Cheshire Cat"], correct: 1 }
+          {
+                "id": "q001",
+                "category": "Basics",
+                "question": "What state is Stars Hollow in?",
+                "options": [
+                      "Massachusetts",
+                      "Connecticut",
+                      "New Hampshire",
+                      "Vermont"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q002",
+                "category": "Basics",
+                "question": "What year was Stars Hollow founded?",
+                "options": [
+                      "1779",
+                      "1785",
+                      "1802",
+                      "1654"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q003",
+                "category": "Basics",
+                "question": "What is the population of Stars Hollow?",
+                "options": [
+                      "7,452",
+                      "9,973",
+                      "12,105",
+                      "8,621"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q004",
+                "category": "Basics",
+                "question": "Who speaks the first line of the series?",
+                "options": [
+                      "Rory",
+                      "Lorelai",
+                      "Luke",
+                      "Emily"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q005",
+                "category": "Bonus Quote",
+                "question": "Bonus: What is Lorelai's actual first line?",
+                "options": [
+                      "Coffee, please!",
+                      "Please, Luke. Please, please, please!",
+                      "I need pancakes!",
+                      "Where's Rory?"
+                ],
+                "answer": 1,
+                "points": 2
+          },
+          {
+                "id": "q006",
+                "category": "Basics",
+                "question": "Who says the last line in the original series finale, \"Bon Voyage\"?",
+                "options": [
+                      "Lorelai",
+                      "Emily",
+                      "Rory",
+                      "Luke"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q007",
+                "category": "Bonus Quote",
+                "question": "Bonus: What is Rory's actual final line in the series?",
+                "options": [
+                      "I guess so.",
+                      "You've given me everything I need.",
+                      "Mom?",
+                      "I'll miss this place."
+                ],
+                "answer": 2,
+                "points": 2
+          },
+          {
+                "id": "q008",
+                "category": "Basics",
+                "question": "What is the name of Luke's diner?",
+                "options": [
+                      "Doose's Market",
+                      "Luke's Diner",
+                      "The Dragonfly Cafe",
+                      "Al's Pancake World"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q009",
+                "category": "Basics",
+                "question": "What business does Mrs. Kim own?",
+                "options": [
+                      "A dance studio",
+                      "An antiques store",
+                      "A bookstore",
+                      "A bakery"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q010",
+                "category": "Basics",
+                "question": "What was the name of Babette and Morey's cat that died in Season 1?",
+                "options": [
+                      "Cinnamon",
+                      "Nutmeg",
+                      "Pepper",
+                      "Vanilla"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q011",
+                "category": "Basics",
+                "question": "Where was Gilmore Girls primarily filmed?",
+                "options": [
+                      "Toronto",
+                      "Los Angeles (Warner Bros. lot)",
+                      "Connecticut",
+                      "New York City"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q012",
+                "category": "Basics",
+                "question": "Who sings the theme song \"Where You Lead\"?",
+                "options": [
+                      "Carole King",
+                      "Sheryl Crow",
+                      "Norah Jones",
+                      "Jewel"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q013",
+                "category": "Characters",
+                "question": "List Rory's boyfriends in chronological order.",
+                "options": [
+                      "Jess, Dean, Logan",
+                      "Dean, Logan, Jess",
+                      "Dean, Jess, Logan",
+                      "Logan, Dean, Jess"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q014",
+                "category": "Characters",
+                "question": "What is Lorelai's middle name?",
+                "options": [
+                      "Leigh",
+                      "Victoria",
+                      "Elizabeth",
+                      "Marie"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q015",
+                "category": "Characters",
+                "question": "What is Rory's full name?",
+                "options": [
+                      "Lorelai Leigh Gilmore",
+                      "Rory Leigh Gilmore",
+                      "Lorelai Victoria Gilmore",
+                      "Emily Leigh Gilmore"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q016",
+                "category": "Characters",
+                "question": "Where did Richard and Emily meet?",
+                "options": [
+                      "At a Yale football game",
+                      "At a college party",
+                      "On a blind date",
+                      "At the DAR"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q017",
+                "category": "Characters",
+                "question": "How did Sookie and Jackson meet?",
+                "options": [
+                      "At a produce market",
+                      "As coworkers at the Independence Inn",
+                      "Through Lorelai",
+                      "At a town meeting"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q018",
+                "category": "Characters",
+                "question": "What is Michel's last name?",
+                "options": [
+                      "Gerard",
+                      "Dumas",
+                      "Laurent",
+                      "Moreau"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q019",
+                "category": "Characters",
+                "question": "What is April's last name?",
+                "options": [
+                      "Danes",
+                      "Nardini",
+                      "Mariano",
+                      "Forester"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q020",
+                "category": "Characters",
+                "question": "Who is Luke's daughter?",
+                "options": [
+                      "Lane",
+                      "April Nardini",
+                      "Paris",
+                      "Anna"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q021",
+                "category": "Characters",
+                "question": "How did Luke find out he had a daughter?",
+                "options": [
+                      "Anna told him directly",
+                      "Through April's science fair project",
+                      "Lorelai told him",
+                      "He received a letter"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q022",
+                "category": "Characters",
+                "question": "What is Dean's wife's name?",
+                "options": [
+                      "Lindsay",
+                      "Shannon",
+                      "Clara",
+                      "Rachel"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q023",
+                "category": "Characters",
+                "question": "How many times was Lorelai engaged?",
+                "options": [
+                      "Once",
+                      "Twice",
+                      "Three times",
+                      "Never"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q024",
+                "category": "Characters",
+                "question": "How many times was Lorelai married?",
+                "options": [
+                      "Never",
+                      "Once",
+                      "Twice",
+                      "Three times"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q025",
+                "category": "Characters",
+                "question": "Who won the Stars Hollow Dance Marathon in Season 3?",
+                "options": [
+                      "Lorelai & Rory",
+                      "Dean & Rory",
+                      "Kirk",
+                      "Miss Patty"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q026",
+                "category": "Characters",
+                "question": "What was Luke's high school nickname?",
+                "options": [
+                      "Ace",
+                      "Butch",
+                      "Duke",
+                      "Skip"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q027",
+                "category": "Characters",
+                "question": "Which annoying Stars Hollow resident bothers Luke the most?",
+                "options": [
+                      "Kirk",
+                      "Taylor Doose",
+                      "Babette",
+                      "Miss Patty"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q028",
+                "category": "Food & Coffee",
+                "question": "What does Rory accidentally shoplift after her first kiss with Dean?",
+                "options": [
+                      "A candy bar",
+                      "Cornstarch",
+                      "Lip gloss",
+                      "A magazine"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q029",
+                "category": "Food & Coffee",
+                "question": "What collectible plates do Lorelai and Rory have?",
+                "options": [
+                      "Star Wars",
+                      "Charlie's Angels",
+                      "Friends",
+                      "The Golden Girls"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q030",
+                "category": "Food & Coffee",
+                "question": "Which famous journalist does Rory idolize?",
+                "options": [
+                      "Barbara Walters",
+                      "Christiane Amanpour",
+                      "Oprah Winfrey",
+                      "Katie Couric"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q031",
+                "category": "Food & Coffee",
+                "question": "How many yellow daisies does Max bring Lorelai when proposing?",
+                "options": [
+                      "500",
+                      "1,000",
+                      "2,000",
+                      "100"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q032",
+                "category": "Food & Coffee",
+                "question": "What song does Lorelai sing to Luke at karaoke?",
+                "options": [
+                      "Total Eclipse of the Heart",
+                      "I Will Always Love You",
+                      "Crazy in Love",
+                      "Don't Stop Believin'"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q033",
+                "category": "Schools & Yale",
+                "question": "Which schools did Rory attend?",
+                "options": [
+                      "Chilton, Harvard, Yale",
+                      "Stars Hollow High, Chilton, Yale",
+                      "Stars Hollow High, Yale only",
+                      "Chilton and Harvard"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q034",
+                "category": "Schools & Yale",
+                "question": "How many Ivy League schools accepted Rory?",
+                "options": [
+                      "One",
+                      "Two",
+                      "Three",
+                      "Four"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q035",
+                "category": "Schools & Yale",
+                "question": "What is the name of the secret society Rory joins at Chilton?",
+                "options": [
+                      "The Puffs",
+                      "The Secret Seven",
+                      "The Skull and Bones",
+                      "The LDB"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q036",
+                "category": "Schools & Yale",
+                "question": "What Yale newspaper does Rory eventually run?",
+                "options": [
+                      "The Yale Herald",
+                      "The Yale Daily News",
+                      "The Yale Record",
+                      "The Yale Spectator"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q037",
+                "category": "Schools & Yale",
+                "question": "Who are the core members of the Life and Death Brigade?",
+                "options": [
+                      "Logan, Colin, Finn",
+                      "Logan, Jess, Dean",
+                      "Colin, Finn, Marty",
+                      "Logan, Rory, Paris"
+                ],
+                "answer": 0,
+                "points": 1
+          },
+          {
+                "id": "q038",
+                "category": "Schools & Yale",
+                "question": "Why was Rory arrested?",
+                "options": [
+                      "Speeding",
+                      "Stealing a yacht",
+                      "Shoplifting",
+                      "Trespassing"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q039",
+                "category": "Harder Trivia",
+                "question": "What was going to be the name of Jess's spin-off show?",
+                "options": [
+                      "The Bridge",
+                      "Windward Circle",
+                      "Philadelphia Story",
+                      "Stars Hollow Outsider"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q040",
+                "category": "Harder Trivia",
+                "question": "What social club is Emily very active in?",
+                "options": [
+                      "The Junior League",
+                      "Daughters of the American Revolution (DAR)",
+                      "The Garden Club",
+                      "The Book Club"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q041",
+                "category": "Harder Trivia",
+                "question": "Which actress who plays Emily was also in Dirty Dancing?",
+                "options": [
+                      "Lauren Graham",
+                      "Kelly Bishop",
+                      "Melissa McCarthy",
+                      "Liza Weil"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q042",
+                "category": "Harder Trivia",
+                "question": "How old was Keiko Agena when she started playing 15-year-old Lane?",
+                "options": [
+                      "19",
+                      "26",
+                      "22",
+                      "30"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q043",
+                "category": "Harder Trivia",
+                "question": "What character did Liza Weil originally audition for?",
+                "options": [
+                      "Lane",
+                      "Paris",
+                      "Rory",
+                      "Sookie"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q044",
+                "category": "Harder Trivia",
+                "question": "What does Lorelai name her dog?",
+                "options": [
+                      "Kirk",
+                      "Paul Anka",
+                      "Max",
+                      "Java"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q045",
+                "category": "Harder Trivia",
+                "question": "What color does Lorelai paint the inside of Luke's diner?",
+                "options": [
+                      "Blue",
+                      "Yellow",
+                      "Green",
+                      "Red"
+                ],
+                "answer": 2,
+                "points": 1
+          },
+          {
+                "id": "q046",
+                "category": "Harder Trivia",
+                "question": "What is Luke's \"dark day\"?",
+                "options": [
+                      "His birthday",
+                      "November 30",
+                      "The anniversary of his divorce",
+                      "Valentine's Day"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q047",
+                "category": "Harder Trivia",
+                "question": "Who was Richard engaged to before Emily?",
+                "options": [
+                      "Penelope Lott",
+                      "Pennilyn Lott",
+                      "Patricia Lott",
+                      "Pamela Lott"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q048",
+                "category": "Harder Trivia",
+                "question": "What real band is Gil, Hep Alien's guitarist, from?",
+                "options": [
+                      "Poison",
+                      "Skid Row",
+                      "Warrant",
+                      "Cinderella"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q049",
+                "category": "Harder Trivia",
+                "question": "What inn do Lorelai and Sookie open?",
+                "options": [
+                      "The Independence Inn",
+                      "The Dragonfly Inn",
+                      "The Stars Hollow Inn",
+                      "The Cheshire Cat"
+                ],
+                "answer": 1,
+                "points": 1
+          },
+          {
+                "id": "q050",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Which season opens Gilmore Girls: A Year in the Life?",
+                "options": [
+                      "Winter",
+                      "Spring",
+                      "Summer",
+                      "Fall"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q051",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "At the start of A Year in the Life, what is Rory struggling to stabilize?",
+                "options": [
+                      "Her teaching schedule",
+                      "Her journalism career",
+                      "Her marriage",
+                      "Her restaurant job"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q052",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What is the name of Rory's forgettable boyfriend in the revival?",
+                "options": [
+                      "Paul",
+                      "Trevor",
+                      "Jason",
+                      "Max"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q053",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Which major newspaper profile is Rory chasing in the revival?",
+                "options": [
+                      "The New York Times",
+                      "The New Yorker",
+                      "GQ",
+                      "The Atlantic"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q054",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What website does Rory reluctantly interview with in A Year in the Life?",
+                "options": [
+                      "SandeeSays",
+                      "BuzzLine",
+                      "The Daily Click",
+                      "Culture Wire"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q055",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What is the title of the book Rory begins writing about her life with Lorelai?",
+                "options": [
+                      "Stars Hollow",
+                      "The Gilmore Girls",
+                      "Where You Lead",
+                      "Coffee First"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q056",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Who suggests that Rory should write a book about herself and Lorelai?",
+                "options": [
+                      "Emily",
+                      "Jess",
+                      "Logan",
+                      "Paris"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q057",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What grief-related event has recently changed Emily's life in the revival?",
+                "options": [
+                      "Richard has died",
+                      "Lorelai has moved away",
+                      "Rory has left Yale",
+                      "Emily sells the DAR"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q058",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Where does Emily eventually move in A Year in the Life?",
+                "options": [
+                      "Nantucket",
+                      "Martha's Vineyard",
+                      "Cape Cod",
+                      "Maine"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q059",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What museum does Emily work at in Nantucket?",
+                "options": [
+                      "A maritime museum",
+                      "A whaling museum",
+                      "A presidential museum",
+                      "A lighthouse museum"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q060",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What famous self-help book does Emily read after Richard's death?",
+                "options": [
+                      "The Life-Changing Magic of Tidying Up",
+                      "Eat Pray Love",
+                      "The Year of Magical Thinking",
+                      "Tiny Beautiful Things"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q061",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Which town event becomes an elaborate musical in the revival?",
+                "options": [
+                      "Stars Hollow: The Musical",
+                      "The Festival of Living Art",
+                      "The Firelight Festival",
+                      "The Dance Marathon"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q062",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Who sits with Lorelai through much of Stars Hollow: The Musical?",
+                "options": [
+                      "Rory",
+                      "Luke",
+                      "Sophie",
+                      "Taylor"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q063",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What outdoor journey does Lorelai attempt after reading Wild?",
+                "options": [
+                      "The Appalachian Trail",
+                      "The Pacific Crest Trail",
+                      "The Camino de Santiago",
+                      "The Long Trail"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q064",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "In which episode does Lorelai call Emily from her Wild trip?",
+                "options": [
+                      "Winter",
+                      "Spring",
+                      "Summer",
+                      "Fall"
+                ],
+                "answer": 3
+          },
+          {
+                "id": "q065",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What memory does Lorelai share with Emily during the revival's emotional phone call?",
+                "options": [
+                      "A kind moment with Richard",
+                      "Her first day at Yale",
+                      "Rory's first word",
+                      "Luke opening the diner"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q066",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Who is engaged to Odette in the revival?",
+                "options": [
+                      "Jess",
+                      "Logan",
+                      "Dean",
+                      "Marty"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q067",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Where does Logan primarily live during A Year in the Life?",
+                "options": [
+                      "London",
+                      "Paris",
+                      "New York",
+                      "Hartford"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q068",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Which group returns for a surreal night out with Rory?",
+                "options": [
+                      "The Puffs",
+                      "The Life and Death Brigade",
+                      "The DAR",
+                      "Hep Alien"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q069",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What is the name of the man Emily becomes close to after Richard's death?",
+                "options": [
+                      "Jack Smith",
+                      "Trevor Smith",
+                      "Arthur Gilmore",
+                      "Simon McLane"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q070",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What does Paris run as an adult in the revival?",
+                "options": [
+                      "A fertility and surrogacy clinic",
+                      "A law firm",
+                      "A newspaper",
+                      "A private high school"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q071",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "At Chilton, what does Paris melt down over seeing again?",
+                "options": [
+                      "The Headmaster's office",
+                      "Tristan's old locker area",
+                      "The cafeteria",
+                      "The debate room"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q072",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What is Luke worried about discussing with Lorelai in the revival?",
+                "options": [
+                      "Having children",
+                      "Selling the diner",
+                      "Moving to New York",
+                      "Buying the Dragonfly"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q073",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Who officiates Luke and Lorelai's spontaneous nighttime wedding?",
+                "options": [
+                      "Kirk",
+                      "Taylor",
+                      "Michel",
+                      "Reverend Skinner"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q074",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Who creates the magical decorations for Luke and Lorelai's wedding?",
+                "options": [
+                      "Kirk",
+                      "Sookie",
+                      "Taylor",
+                      "Michel"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q075",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "What does Michel consider doing in the revival?",
+                "options": [
+                      "Leaving the Dragonfly Inn",
+                      "Buying Luke's Diner",
+                      "Running for selectman",
+                      "Joining the DAR"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q076",
+                "points": 1,
+                "category": "A Year in the Life",
+                "question": "Which chef briefly returns to the Dragonfly kitchen in the revival?",
+                "options": [
+                      "Sookie",
+                      "Rachel Ray",
+                      "Roy Choi",
+                      "Alton Brown"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q077",
+                "points": 2,
+                "category": "A Year in the Life",
+                "question": "What are the final two words Rory says to Lorelai in the revival?",
+                "options": [
+                      "I'm pregnant.",
+                      "I'm leaving.",
+                      "Marry me.",
+                      "Help me."
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q078",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who created Gilmore Girls?",
+                "options": [
+                      "Amy Sherman-Palladino",
+                      "Shonda Rhimes",
+                      "Diane English",
+                      "Marta Kauffman"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q079",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who is Amy Sherman-Palladino's husband and frequent creative partner on Gilmore Girls?",
+                "options": [
+                      "Daniel Palladino",
+                      "David Rosenthal",
+                      "Gavin Polone",
+                      "Rob Thomas"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q080",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Lorelai Gilmore?",
+                "options": [
+                      "Lauren Graham",
+                      "Alexis Bledel",
+                      "Kelly Bishop",
+                      "Sherilyn Fenn"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q081",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Rory Gilmore?",
+                "options": [
+                      "Alexis Bledel",
+                      "Liza Weil",
+                      "Keiko Agena",
+                      "Arielle Kebbel"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q082",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Luke Danes?",
+                "options": [
+                      "Scott Patterson",
+                      "David Sutcliffe",
+                      "Milo Ventimiglia",
+                      "Jared Padalecki"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q083",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Emily Gilmore?",
+                "options": [
+                      "Kelly Bishop",
+                      "Sally Struthers",
+                      "Liz Torres",
+                      "Marion Ross"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q084",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Richard Gilmore?",
+                "options": [
+                      "Edward Herrmann",
+                      "Ted Danson",
+                      "Alan Alda",
+                      "John Slattery"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q085",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Sookie St. James?",
+                "options": [
+                      "Melissa McCarthy",
+                      "Alex Borstein",
+                      "Rose Abdoo",
+                      "Kathleen Wilhoite"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q086",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Lane Kim?",
+                "options": [
+                      "Keiko Agena",
+                      "Liza Weil",
+                      "Emily Kuroda",
+                      "Shelly Cole"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q087",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Paris Geller?",
+                "options": [
+                      "Liza Weil",
+                      "Alexis Bledel",
+                      "Krysten Ritter",
+                      "Riki Lindhome"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q088",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Jess Mariano?",
+                "options": [
+                      "Milo Ventimiglia",
+                      "Matt Czuchry",
+                      "Jared Padalecki",
+                      "Chad Michael Murray"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q089",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Dean Forester?",
+                "options": [
+                      "Jared Padalecki",
+                      "Milo Ventimiglia",
+                      "Sean Gunn",
+                      "Adam Brody"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q090",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Who plays Logan Huntzberger?",
+                "options": [
+                      "Matt Czuchry",
+                      "Chris Eigeman",
+                      "Danny Strong",
+                      "Michael York"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q091",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Kirk Gleason?",
+                "options": [
+                      "Sean Gunn",
+                      "Todd Lowe",
+                      "Jackson Douglas",
+                      "Michael Winters"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q092",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Taylor Doose?",
+                "options": [
+                      "Michael Winters",
+                      "Sean Gunn",
+                      "Scott Cohen",
+                      "Ted Rooney"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q093",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Michel Gerard?",
+                "options": [
+                      "Yanic Truesdale",
+                      "David Sutcliffe",
+                      "Chris Eigeman",
+                      "Sebastian Bach"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q094",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Jackson Belleville?",
+                "options": [
+                      "Jackson Douglas",
+                      "Todd Lowe",
+                      "Sean Gunn",
+                      "Scott Patterson"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q095",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Zach Van Gerbig?",
+                "options": [
+                      "Todd Lowe",
+                      "Adam Brody",
+                      "Sebastian Bach",
+                      "John Cabrera"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q096",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Gil in Hep Alien?",
+                "options": [
+                      "Sebastian Bach",
+                      "Todd Lowe",
+                      "Adam Brody",
+                      "Jared Padalecki"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q097",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Dave Rygalski?",
+                "options": [
+                      "Adam Brody",
+                      "Jared Padalecki",
+                      "Milo Ventimiglia",
+                      "Danny Strong"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q098",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Doyle McMaster?",
+                "options": [
+                      "Danny Strong",
+                      "Matt Czuchry",
+                      "Chris Eigeman",
+                      "Wayne Wilcox"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q099",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Jason Stiles?",
+                "options": [
+                      "Chris Eigeman",
+                      "David Sutcliffe",
+                      "Scott Cohen",
+                      "Michael York"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q100",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Christopher Hayden?",
+                "options": [
+                      "David Sutcliffe",
+                      "Scott Cohen",
+                      "Chris Eigeman",
+                      "Max Greenfield"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q101",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which actor plays Max Medina?",
+                "options": [
+                      "Scott Cohen",
+                      "David Sutcliffe",
+                      "Michael York",
+                      "Rob Estes"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q102",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which Gilmore Girls actor later starred in The Good Wife and The Resident?",
+                "options": [
+                      "Matt Czuchry",
+                      "Milo Ventimiglia",
+                      "Jared Padalecki",
+                      "Sean Gunn"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q103",
+                "points": 1,
+                "category": "Cast & Creators",
+                "question": "Which Gilmore Girls actor later starred in Supernatural?",
+                "options": [
+                      "Jared Padalecki",
+                      "Milo Ventimiglia",
+                      "Matt Czuchry",
+                      "Adam Brody"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q104",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "The Stars Hollow town square set is located on which studio lot?",
+                "options": [
+                      "Warner Bros.",
+                      "Universal",
+                      "Paramount",
+                      "Sony"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q105",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which Connecticut town is often cited as one inspiration for Stars Hollow?",
+                "options": [
+                      "Washington Depot, Connecticut",
+                      "Burbank, California",
+                      "Ojai, California",
+                      "Mystic, Connecticut"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q106",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "The unaired pilot featured a different actor in which recurring role?",
+                "options": [
+                      "Sookie St. James",
+                      "Luke Danes",
+                      "Emily Gilmore",
+                      "Kirk Gleason"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q107",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Who played Sookie in the unaired pilot before Melissa McCarthy took the role?",
+                "options": [
+                      "Alex Borstein",
+                      "Jane Lynch",
+                      "M?dchen Amick",
+                      "Sherilyn Fenn"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q108",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Alex Borstein later appeared on the show as which character?",
+                "options": [
+                      "Drella",
+                      "Miss Patty",
+                      "Lulu",
+                      "Liz"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q109",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "What was the planned Jess-centered spin-off called?",
+                "options": [
+                      "Windward Circle",
+                      "The Bridge",
+                      "Jess",
+                      "Venice Beach"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q110",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which season was the first original-series season not run by Amy Sherman-Palladino?",
+                "options": [
+                      "Season 7",
+                      "Season 6",
+                      "Season 5",
+                      "Season 4"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q111",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Who served as showrunner for the seventh season after Amy Sherman-Palladino left?",
+                "options": [
+                      "David S. Rosenthal",
+                      "Daniel Palladino",
+                      "Gavin Polone",
+                      "Ken Levine"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q112",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "The famous final four words were restored in which project?",
+                "options": [
+                      "A Year in the Life",
+                      "Season 7",
+                      "The unaired pilot",
+                      "The soundtrack album"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q113",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which network originally aired Gilmore Girls?",
+                "options": [
+                      "The WB",
+                      "UPN",
+                      "ABC",
+                      "NBC"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q114",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which network aired the final original-series season after The WB merged?",
+                "options": [
+                      "The CW",
+                      "ABC Family",
+                      "Lifetime",
+                      "Fox"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q115",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "What real-life mother-daughter singer pair performed the theme song?",
+                "options": [
+                      "Carole King and Louise Goffin",
+                      "Judy Garland and Liza Minnelli",
+                      "Naomi and Wynonna Judd",
+                      "Diana and Tracee Ellis Ross"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q116",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Carole King appears in the series as which Stars Hollow character?",
+                "options": [
+                      "Sophie Bloom",
+                      "Miss Patty",
+                      "Babette Dell",
+                      "Lulu Kuschner"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q117",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which Stars Hollow business does Sophie run?",
+                "options": [
+                      "A music store",
+                      "A bakery",
+                      "A flower shop",
+                      "A movie theater"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q118",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "The show is especially known for what dialogue style?",
+                "options": [
+                      "Fast-paced pop-culture banter",
+                      "Improvised monologues",
+                      "Silent comedy",
+                      "Documentary interviews"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q119",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which streaming service released A Year in the Life?",
+                "options": [
+                      "Netflix",
+                      "Hulu",
+                      "Prime Video",
+                      "Max"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q120",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "A Year in the Life is structured around how many seasonal chapters?",
+                "options": [
+                      "Four",
+                      "Six",
+                      "Eight",
+                      "Ten"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q121",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which Stars Hollow set piece is central to many outdoor town scenes?",
+                "options": [
+                      "The town gazebo",
+                      "A lighthouse",
+                      "A covered bridge",
+                      "A train platform"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q122",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "What production feature helped Stars Hollow feel like a real New England town despite filming in California?",
+                "options": [
+                      "A standing backlot town set",
+                      "Only location shooting",
+                      "A green-screen village",
+                      "A documentary crew"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q123",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which actress who played Anna Nardini also appeared as Sasha in the Jess spin-off backdoor pilot?",
+                "options": [
+                      "Sherilyn Fenn",
+                      "M?dchen Amick",
+                      "Kathleen Wilhoite",
+                      "Vanessa Marano"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q124",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which later Oscar-winning actor made an early TV appearance on Gilmore Girls?",
+                "options": [
+                      "Jon Hamm",
+                      "Rami Malek",
+                      "Max Greenfield",
+                      "Nick Offerman"
+                ],
+                "answer": 1
+          },
+          {
+                "id": "q125",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which actress played both Drella and Miss Celine?",
+                "options": [
+                      "Alex Borstein",
+                      "Rose Abdoo",
+                      "Sally Struthers",
+                      "Liz Torres"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q126",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which real school is repeatedly discussed as Rory's early dream college?",
+                "options": [
+                      "Harvard",
+                      "Princeton",
+                      "Columbia",
+                      "Stanford"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q127",
+                "points": 1,
+                "category": "Behind the Scenes",
+                "question": "Which actress's Broadway background connects her to A Chorus Line before Gilmore Girls?",
+                "options": [
+                      "Kelly Bishop",
+                      "Lauren Graham",
+                      "Melissa McCarthy",
+                      "Liza Weil"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q128",
+                "points": 1,
+                "category": "Characters",
+                "question": "What is the name of Rory's Chilton headmaster?",
+                "options": [
+                      "Charleston",
+                      "Medina",
+                      "Hanlin",
+                      "Weston"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q129",
+                "points": 1,
+                "category": "Characters",
+                "question": "Who is Paris's nanny?",
+                "options": [
+                      "Nanny",
+                      "Lulu",
+                      "Francie",
+                      "Tana"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q130",
+                "points": 1,
+                "category": "Characters",
+                "question": "Who becomes Lane's husband?",
+                "options": [
+                      "Zach",
+                      "Dave",
+                      "Brian",
+                      "Gil"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q131",
+                "points": 1,
+                "category": "Characters",
+                "question": "What are the names of Lane and Zach's twins?",
+                "options": [
+                      "Kwan and Steve",
+                      "Dave and Brian",
+                      "Kirk and Luke",
+                      "Henry and Joe"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q132",
+                "points": 1,
+                "category": "Characters",
+                "question": "Who is Lane's first serious love interest?",
+                "options": [
+                      "Dave Rygalski",
+                      "Zach Van Gerbig",
+                      "Henry Cho",
+                      "Brian Fuller"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q133",
+                "points": 1,
+                "category": "Characters",
+                "question": "Who is Rory's college roommate at Yale?",
+                "options": [
+                      "Tana Schrick",
+                      "Lucy",
+                      "Olivia",
+                      "Francie"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q134",
+                "points": 1,
+                "category": "Food & Coffee",
+                "question": "What food do Lorelai and Rory famously eat with alarming commitment?",
+                "options": [
+                      "Pop-Tarts",
+                      "Kale salads",
+                      "Sushi only",
+                      "Oatmeal"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q135",
+                "points": 1,
+                "category": "Food & Coffee",
+                "question": "Which restaurant is the girls' most important coffee stop?",
+                "options": [
+                      "Luke's Diner",
+                      "Weston's Bakery",
+                      "Al's Pancake World",
+                      "Antonioli's"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q136",
+                "points": 1,
+                "category": "Food & Coffee",
+                "question": "Which chef is Lorelai's best friend?",
+                "options": [
+                      "Sookie St. James",
+                      "Rachel Ray",
+                      "Mia Bass",
+                      "Liz Danes"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q137",
+                "points": 1,
+                "category": "Food & Coffee",
+                "question": "What does Luke strongly disapprove of Lorelai and Rory eating too much of?",
+                "options": [
+                      "Junk food",
+                      "Vegetables",
+                      "Fish",
+                      "Soup"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q138",
+                "points": 1,
+                "category": "Schools & Yale",
+                "question": "What private school does Rory transfer to in Season 1?",
+                "options": [
+                      "Chilton",
+                      "Choate",
+                      "Exeter",
+                      "Andover"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q139",
+                "points": 1,
+                "category": "Schools & Yale",
+                "question": "Who becomes Rory's fierce academic rival and later friend?",
+                "options": [
+                      "Paris Geller",
+                      "Louise Grant",
+                      "Madeline Lynn",
+                      "Francie Jarvis"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q140",
+                "points": 1,
+                "category": "Schools & Yale",
+                "question": "Who is the editor of the Yale Daily News before Rory takes over?",
+                "options": [
+                      "Paris Geller",
+                      "Logan Huntzberger",
+                      "Doyle McMaster",
+                      "Mitchum Huntzberger"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q141",
+                "points": 1,
+                "category": "Schools & Yale",
+                "question": "Which Huntzberger tells Rory she does not have what it takes?",
+                "options": [
+                      "Mitchum",
+                      "Logan",
+                      "Honor",
+                      "Shira"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q142",
+                "points": 1,
+                "category": "Basics",
+                "question": "What town official is obsessed with rules and festivals?",
+                "options": [
+                      "Taylor Doose",
+                      "Kirk Gleason",
+                      "Andrew",
+                      "Morey Dell"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q143",
+                "points": 1,
+                "category": "Basics",
+                "question": "What is the town meeting's usual emotional temperature?",
+                "options": [
+                      "Chaotic and opinionated",
+                      "Silent and formal",
+                      "Fast and illegal",
+                      "Always canceled"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q144",
+                "points": 1,
+                "category": "Basics",
+                "question": "Which landmark sits in the center of Stars Hollow?",
+                "options": [
+                      "The gazebo",
+                      "A clock tower",
+                      "A lighthouse",
+                      "A train depot"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q145",
+                "points": 1,
+                "category": "Harder Trivia",
+                "question": "What is the name of Luke's sister?",
+                "options": [
+                      "Liz",
+                      "Rachel",
+                      "Anna",
+                      "Nicole"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q146",
+                "points": 1,
+                "category": "Harder Trivia",
+                "question": "What is Jess's mother's name?",
+                "options": [
+                      "Liz",
+                      "Rachel",
+                      "Anna",
+                      "Nicole"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q147",
+                "points": 2,
+                "category": "Bonus Quote",
+                "question": "Who says, \"Oy with the poodles already\"?",
+                "options": [
+                      "Lorelai",
+                      "Rory",
+                      "Emily",
+                      "Sookie"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q148",
+                "points": 2,
+                "category": "Bonus Quote",
+                "question": "Who says, \"People are particularly stupid today. I can't talk to any more of them\"?",
+                "options": [
+                      "Michel",
+                      "Luke",
+                      "Paris",
+                      "Emily"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q149",
+                "points": 2,
+                "category": "Bonus Quote",
+                "question": "Who says, \"I smell snow\"?",
+                "options": [
+                      "Lorelai",
+                      "Rory",
+                      "Sookie",
+                      "Lane"
+                ],
+                "answer": 0
+          },
+          {
+                "id": "q150",
+                "points": 2,
+                "category": "Bonus Quote",
+                "question": "Who is most associated with the line, \"In omnia paratus\"?",
+                "options": [
+                      "Logan",
+                      "Dean",
+                      "Jess",
+                      "Max"
+                ],
+                "answer": 0
+          }
     ];
 
-    const totalPoints = questions.reduce((sum, item) => sum + item.points, 0);
+    const GAME_QUESTION_COUNT = 50;
+    let gameQuestions = [];
+    let totalPoints = 0;
     const letters = ["A", "B", "C", "D"];
     const cozyFacts = {
-      how: "Answer one question at a time. Main questions are worth 1 point, and the two bonus quote questions are worth 2 points each. The Next button appears once you pick an answer.",
+      how: "Each game randomly selects 50 questions from the full Stars Hollow question bank. Normal questions are worth 1 point, and bonus quote questions are worth 2 points each.",
       characters: "Tonight's guest list includes Lorelai, Rory, Luke, Sookie, Lane, Paris, Emily, Richard, Kirk, Taylor, Michel, and several dangerously memorable boyfriends.",
-      scoreboard: "48-51 points: Lorelai-level fast talker. 38-47: Rory would be proud. 25-37: Friday night dinner regular. Under 25: time for a rewatch and more coffee."
+      scoreboard: "90% and up: Lorelai-level fast talker. 75%-89%: Rory would be proud. 50%-74%: Friday night dinner regular. Under 50%: time for a rewatch and more coffee."
     };
 
     const homeScreen = document.getElementById("homeScreen");
@@ -996,7 +3323,68 @@
       screen.classList.add("active");
     }
 
+
+    function shuffleItems(items) {
+      const shuffled = [...items];
+      for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+      }
+      return shuffled;
+    }
+
+    function selectGameQuestions() {
+      const quotas = {
+        "Bonus Quote": 3,
+        "A Year in the Life": 7,
+        "Cast & Creators": 6,
+        "Behind the Scenes": 6,
+        "Characters": 7,
+        "Harder Trivia": 6,
+        "Basics": 5,
+        "Food & Coffee": 4,
+        "Schools & Yale": 4
+      };
+      const selected = [];
+      const used = new Set();
+
+      Object.entries(quotas).forEach(([category, count]) => {
+        const pool = shuffleItems(questions.filter((item) => item.category === category));
+        pool.slice(0, count).forEach((item) => {
+          selected.push(item);
+          used.add(item.id);
+        });
+      });
+
+      shuffleItems(questions.filter((item) => !used.has(item.id))).some((item) => {
+        if (selected.length >= GAME_QUESTION_COUNT) return true;
+        selected.push(item);
+        used.add(item.id);
+        return false;
+      });
+
+      return shuffleItems(selected).slice(0, GAME_QUESTION_COUNT);
+    }
+
+    function setActiveGame(selectedQuestions) {
+      gameQuestions = selectedQuestions;
+      totalPoints = gameQuestions.reduce((sum, item) => sum + item.points, 0);
+    }
+
+    function questionsFromIds(questionIds = []) {
+      const byId = new Map(questions.map((item) => [item.id, item]));
+      const selected = questionIds.map((id) => byId.get(id)).filter(Boolean);
+      return selected.length ? selected : questions.slice(0, GAME_QUESTION_COUNT);
+    }
+
+    function getCurrentGameQuestions() {
+      if (latestRoom?.questionIds?.length) return questionsFromIds(latestRoom.questionIds);
+      return gameQuestions.length ? gameQuestions : questions.slice(0, GAME_QUESTION_COUNT);
+    }
+
+
     function startQuiz() {
+      setActiveGame(selectGameQuestions());
       currentIndex = 0;
       score = 0;
       selected = false;
@@ -1006,18 +3394,18 @@
     }
 
     function renderQuestion() {
-      const item = questions[currentIndex];
+      const item = gameQuestions[currentIndex];
       selected = false;
       feedback.textContent = "";
       nextButton.hidden = true;
       questionText.textContent = item.question;
       categoryText.textContent = item.category;
       scoreText.textContent = `Score ${score}`;
-      progressText.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-      progressFill.style.width = `${(currentIndex / questions.length) * 100}%`;
+      progressText.textContent = `Question ${currentIndex + 1} of ${getCurrentGameQuestions().length}`;
+      progressFill.style.width = `${(currentIndex / gameQuestions.length) * 100}%`;
       answersEl.innerHTML = "";
 
-      item.answers.forEach((answer, index) => {
+      item.options.forEach((answer, index) => {
         const button = document.createElement("button");
         button.className = "answer-button";
         button.type = "button";
@@ -1031,12 +3419,12 @@
       if (selected) return;
       selected = true;
 
-      const item = questions[currentIndex];
-      const isCorrect = index === item.correct;
+      const item = gameQuestions[currentIndex];
+      const isCorrect = index === item.answer;
       const buttons = [...answersEl.querySelectorAll(".answer-button")];
       buttons.forEach((answerButton, answerIndex) => {
         answerButton.disabled = true;
-        if (answerIndex === item.correct) answerButton.classList.add("correct");
+        if (answerIndex === item.answer) answerButton.classList.add("correct");
       });
 
       button.classList.add("selected");
@@ -1045,17 +3433,17 @@
         feedback.textContent = item.points === 2 ? "Correct! Bonus coffee acquired." : "Correct! Coffee-fueled brilliance.";
       } else {
         button.classList.add("wrong");
-        feedback.textContent = `Not quite. The answer was ${letters[item.correct]}.`;
+        feedback.textContent = `Not quite. The answer was ${letters[item.answer]}.`;
       }
 
       scoreText.textContent = `Score ${score}`;
-      progressFill.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
-      nextButton.textContent = currentIndex === questions.length - 1 ? "See Results" : "Next";
+      progressFill.style.width = `${((currentIndex + 1) / gameQuestions.length) * 100}%`;
+      nextButton.textContent = currentIndex === gameQuestions.length - 1 ? "See Results" : "Next";
       nextButton.hidden = false;
     }
 
     function nextQuestion() {
-      if (currentIndex === questions.length - 1) {
+      if (currentIndex === gameQuestions.length - 1) {
         showResults();
         return;
       }
@@ -1070,8 +3458,8 @@
       const title = getResultTitle(percentage);
       resultTitle.textContent = title;
       scoreNumber.textContent = `${score}/${totalPoints}`;
-      stars.textContent = "★★★★★".slice(0, starCount) + "☆☆☆☆☆".slice(0, 5 - starCount);
-      resultDetails.textContent = `${percentage}% correct across ${questions.length} questions, including the two bonus quote questions.`;
+      stars.textContent = "â˜…â˜…â˜…â˜…â˜…".slice(0, starCount) + "â˜†â˜†â˜†â˜†â˜†".slice(0, 5 - starCount);
+      resultDetails.textContent = `${percentage}% correct across ${gameQuestions.length} questions, including the bonus quote questions.`;
       showScreen(resultsScreen);
 
       if (percentage >= 85) {
@@ -1081,13 +3469,15 @@
 
     function getResultTitle(percentage) {
       if (percentage >= 94) return "You're a Lorelai-level fast talker!";
+      if (percentage >= 85) return "You could run the Yale Daily News on coffee alone.";
       if (percentage >= 75) return "Rory would be proud!";
-      if (percentage >= 50) return "A solid Friday night dinner showing.";
-      return "Time for coffee and a cozy rewatch.";
+      if (percentage >= 60) return "A solid Friday night dinner showing.";
+      if (percentage >= 45) return "Taylor would request a recount, but you're still invited.";
+      return "Time for coffee, takeout, and a cozy rewatch.";
     }
 
     function launchConfetti() {
-      const pieces = ["☕", "★", "◆", "✦", "●"];
+      const pieces = ["â˜•", "â˜…", "â—†", "âœ¦", "â—"];
       for (let i = 0; i < 42; i += 1) {
         const piece = document.createElement("span");
         piece.className = "confetti";
@@ -1175,13 +3565,15 @@
 
         stopLiveListeners();
         activeRoomCode = makeRoomCode();
+        setActiveGame(selectGameQuestions());
         const roomRef = doc(db, "rooms", activeRoomCode);
         infoDrawer.textContent = "Creating room...";
         await setDoc(roomRef, {
           createdAt: serverTimestamp(),
           currentIndex: 0,
           phase: "lobby",
-          questionCount: questions.length,
+          questionCount: gameQuestions.length,
+          questionIds: gameQuestions.map((item) => item.id),
           totalPoints
         });
 
@@ -1214,19 +3606,20 @@
     function renderHostRoom() {
       if (!latestRoom) return;
 
-      const item = questions[latestRoom.currentIndex] || questions[0];
+      const currentQuestions = getCurrentGameQuestions();
+      const item = currentQuestions[latestRoom.currentIndex] || currentQuestions[0];
       hostPhase.textContent = latestRoom.phase;
-      hostProgress.textContent = `Question ${latestRoom.currentIndex + 1} of ${questions.length}`;
+      hostProgress.textContent = `Question ${latestRoom.currentIndex + 1} of ${getCurrentGameQuestions().length}`;
       hostCategory.textContent = item.category;
       hostQuestion.textContent = latestRoom.phase === "lobby" ? "Waiting in the lobby..." : item.question;
       hostAnswers.innerHTML = "";
 
-      item.answers.forEach((answer, index) => {
+      item.options.forEach((answer, index) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "answer-button";
         if (latestRoom.phase === "reveal") {
-          button.classList.toggle("correct", index === item.correct);
+          button.classList.toggle("correct", index === item.answer);
         }
         button.innerHTML = `<span class="answer-letter">${letters[index]}</span><span>${answer}</span>`;
         hostAnswers.appendChild(button);
@@ -1240,7 +3633,7 @@
         hostQuestion.textContent = "Final scores are in!";
         hostFeedback.textContent = "Oy with the poodles already. That's a wrap.";
       } else if (latestRoom.phase === "reveal") {
-        hostFeedback.textContent = `Correct answer: ${letters[item.correct]}) ${item.answers[item.correct]}`;
+        hostFeedback.textContent = `Correct answer: ${letters[item.answer]}) ${item.options[item.answer]}`;
       } else if (latestRoom.phase === "answering") {
         hostFeedback.textContent = "Teams are answering now.";
       }
@@ -1266,14 +3659,15 @@
     async function revealHostAnswer() {
       if (!activeRoomCode || !latestRoom || latestRoom.phase !== "answering") return;
 
-      const item = questions[latestRoom.currentIndex];
+      const currentQuestions = getCurrentGameQuestions();
+      const item = currentQuestions[latestRoom.currentIndex];
       const answersSnapshot = await getDocs(collection(db, "rooms", activeRoomCode, "answers"));
       const batch = writeBatch(db);
       const scoreByTeam = new Map(latestTeams.map((team) => [team.id, team.score || 0]));
 
       answersSnapshot.docs.forEach((answerDoc) => {
         const answer = answerDoc.data();
-        if (answer.questionIndex === latestRoom.currentIndex && answer.choice === item.correct) {
+        if (answer.questionIndex === latestRoom.currentIndex && answer.choice === item.answer) {
           scoreByTeam.set(answer.teamId, (scoreByTeam.get(answer.teamId) || 0) + item.points);
         }
       });
@@ -1289,7 +3683,7 @@
     async function hostNextQuestion() {
       if (!activeRoomCode || !latestRoom) return;
 
-      if (latestRoom.currentIndex >= questions.length - 1) {
+      if (latestRoom.currentIndex >= getCurrentGameQuestions().length - 1) {
         await updateDoc(doc(db, "rooms", activeRoomCode), { phase: "results" });
         return;
       }
@@ -1361,7 +3755,8 @@
     function renderPlayerRoom() {
       if (!latestRoom) return;
 
-      const item = questions[latestRoom.currentIndex] || questions[0];
+      const currentQuestions = getCurrentGameQuestions();
+      const item = currentQuestions[latestRoom.currentIndex] || currentQuestions[0];
       playerPhase.textContent = latestRoom.phase;
       playerAnswers.innerHTML = "";
 
@@ -1378,16 +3773,16 @@
       }
 
       playerPrompt.textContent = latestRoom.phase === "reveal"
-        ? `Correct answer: ${letters[item.correct]}) ${item.answers[item.correct]}`
+        ? `Correct answer: ${letters[item.answer]}) ${item.options[item.answer]}`
         : "Pick your answer. The question is on the main screen.";
 
-      item.answers.forEach((answer, index) => {
+      item.options.forEach((answer, index) => {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "answer-button";
         button.disabled = latestRoom.phase !== "answering" || answeredQuestion === latestRoom.currentIndex;
         if (latestRoom.phase === "reveal") {
-          button.classList.toggle("correct", index === item.correct);
+          button.classList.toggle("correct", index === item.answer);
         }
         button.innerHTML = `<span class="answer-letter">${letters[index]}</span><span>${answer}</span>`;
         button.addEventListener("click", () => submitPlayerAnswer(index));
